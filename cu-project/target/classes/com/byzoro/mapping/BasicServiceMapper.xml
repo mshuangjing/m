@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.BasicServiceMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.BasicService">
+    <id column="basic_service_service_id" jdbcType="BIGINT" property="serviceId" />
+    <result column="basic_service_user_id" jdbcType="BIGINT" property="userId" />
+    <result column="basic_service_service_content" jdbcType="VARCHAR" property="serviceContent" />
+    <result column="basic_service_regtype" jdbcType="INTEGER" property="regtype" />
+    <result column="basic_service_regid" jdbcType="VARCHAR" property="regid" />
+    <result column="basic_service_set_mode" jdbcType="INTEGER" property="setMode" />
+    <result column="basic_service_business" jdbcType="BIT" property="business" />
+    <result column="basic_service_status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    basic_service.service_id as basic_service_service_id, basic_service.user_id as basic_service_user_id, 
+    basic_service.service_content as basic_service_service_content, basic_service.regtype as basic_service_regtype, 
+    basic_service.regid as basic_service_regid, basic_service.set_mode as basic_service_set_mode, 
+    basic_service.business as basic_service_business, basic_service.`status` as `basic_service_status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basic_service basic_service
+    where basic_service.service_id = #{serviceId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from basic_service
+    where service_id = #{serviceId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.byzoro.entity.BasicService">
+    insert into basic_service (service_id, user_id, service_content, 
+      regtype, regid, set_mode, 
+      business, `status`)
+    values (#{serviceId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{serviceContent,jdbcType=VARCHAR}, 
+      #{regtype,jdbcType=INTEGER}, #{regid,jdbcType=VARCHAR}, #{setMode,jdbcType=INTEGER}, 
+      #{business,jdbcType=BIT}, #{status,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.byzoro.entity.BasicService">
+    insert into basic_service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="serviceContent != null">
+        service_content,
+      </if>
+      <if test="regtype != null">
+        regtype,
+      </if>
+      <if test="regid != null">
+        regid,
+      </if>
+      <if test="setMode != null">
+        set_mode,
+      </if>
+      <if test="business != null">
+        business,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceContent != null">
+        #{serviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="regtype != null">
+        #{regtype,jdbcType=INTEGER},
+      </if>
+      <if test="regid != null">
+        #{regid,jdbcType=VARCHAR},
+      </if>
+      <if test="setMode != null">
+        #{setMode,jdbcType=INTEGER},
+      </if>
+      <if test="business != null">
+        #{business,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.BasicService">
+    update basic_service
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceContent != null">
+        service_content = #{serviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="regtype != null">
+        regtype = #{regtype,jdbcType=INTEGER},
+      </if>
+      <if test="regid != null">
+        regid = #{regid,jdbcType=VARCHAR},
+      </if>
+      <if test="setMode != null">
+        set_mode = #{setMode,jdbcType=INTEGER},
+      </if>
+      <if test="business != null">
+        business = #{business,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.BasicService">
+    update basic_service
+    set user_id = #{userId,jdbcType=BIGINT},
+      service_content = #{serviceContent,jdbcType=VARCHAR},
+      regtype = #{regtype,jdbcType=INTEGER},
+      regid = #{regid,jdbcType=VARCHAR},
+      set_mode = #{setMode,jdbcType=INTEGER},
+      business = #{business,jdbcType=BIT},
+      `status` = #{status,jdbcType=BIT}
+    where service_id = #{serviceId,jdbcType=BIGINT}
+  </update>
+</mapper>

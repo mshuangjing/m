@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.byzoro.mapper.SYSLogMapper">
+
+    <resultMap id="SYSLogResultMap" type="com.byzoro.entity.SYSLog">
+        <result column="id" property="id" />
+        <result column="login_name" property="loginName" />
+        <result column="client_ip" property="clientIp" />
+        <result column="create_time" property="createTime" />
+        <result column="before_operation" property="beforeOperation" />
+        <result column="after_operation" property="afterOperation" />
+        <result column="deviceCode" property="deviceCode" />
+        <result column="opt_content" property="optContent" />
+        <result column="opt_name" property="optName" />
+		<result column="opt_status" property="optStatus" />
+        <!--<result column="run_status" property="runStatus" />-->
+        <!--<result column="case_desc" property="caseDesc"/>-->
+    </resultMap>
+
+    <select id="queryAllByParams" parameterType="java.util.Map" resultMap="SYSLogResultMap">
+        select
+        id,
+        login_name,
+        client_ip,
+        create_time,
+        before_operation,
+        after_operation,
+        deviceCode,
+        opt_content,
+		opt_name,
+		opt_status
+        from sys_log
+        <where>
+            <if test="loginName != null and loginName != ''">
+               and  login_name LIKE CONCAT('%','${loginName}','%')
+            </if>
+            <!--<if test="detaTime != null and detaTime != ''">-->
+                <!--create_time like CONCAT('%',#{detaTime},'%' )-->
+            <!--</if>-->
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+              and   create_time between #{startTime} and #{endTime}
+            </if>
+            <if test="clientIp != null and clientIp != ''">
+               and  client_ip LIKE CONCAT('%','${clientIp}','%')
+            </if>
+            <!--<if test="type != null and type != ''">-->
+                <!--opt_content like CONCAT('%',#{type},'%' )-->
+            <!--</if>-->
+        </where>
+        ORDER BY create_time DESC
+        limit ${pageCurr},${pageSize}
+    </select>
+
+
+
+
+
+
+
+
+
+
+	<select id="getList" parameterType="java.util.Map" resultType="SYSLog">
+		select
+       		id,
+			login_name,
+			role_name,
+			opt_content,
+			client_ip,
+			create_time,
+			before_operation,
+			after_operation,
+			deviceCode,
+			opt_name,
+			opt_status
+		from sys_log
+		<where>
+			<if test="loginName != null and loginName != ''">
+				and login_name =#{loginName}
+			</if>
+			<if test="detaTime != null and detaTime != ''">
+				and create_time like CONCAT('%',#{detaTime},'%' )
+			</if>
+			<if test="clientIp != null and clientIp != ''">
+				and client_ip =#{ip}
+			</if>
+			<if test="type != null and type != ''">
+				and opt_content like CONCAT('%',#{type},'%' )
+			</if>
+		</where>
+		ORDER BY id DESC
+		limit #{begin},#{pageSize}
+	</select>
+
+	<select id="getTotal" parameterType="java.util.Map" resultType="int">
+		select count(*)
+		from sys_log
+		<where>
+			<if test="loginName != null and loginName != ''">
+				and login_name LIKE CONCAT('%','${loginName}','%')
+			</if>
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				and create_time between #{startTime} and #{endTime}
+            </if>
+			<if test="clientIp != null and clientIp != ''">
+				and client_ip LIKE CONCAT('%','${clientIp}','%')
+			</if>
+			<if test="type != null and type != ''">
+				and opt_content like CONCAT('%',#{type},'%' )
+			</if>
+		</where>
+	</select>
+	
+	
+	<insert id="addSysLog" parameterType="SYSLog">
+	    insert into sys_log(
+		    login_name, 
+		    opt_content, 
+		    client_ip, 
+		    before_operation,
+		    after_operation,
+		    create_time,
+		    deviceCode,
+		    opt_name,
+		    opt_status
+		)
+	    values (
+	    #{loginName,jdbcType=VARCHAR}, 
+	    #{optContent,jdbcType=VARCHAR}, 
+	    #{clientIp,jdbcType=VARCHAR}, 
+	    #{beforeOperation,jdbcType=VARCHAR}, 
+	    #{afterOperation,jdbcType=VARCHAR},
+	    #{createTime,jdbcType=VARCHAR},
+	    #{deviceCode,jdbcType=VARCHAR},
+	    #{optName,jdbcType=VARCHAR},
+	    #{optStatus,jdbcType=VARCHAR}
+	    )
+	  </insert>
+	  
+	  <select id="getSysLogList"  resultType="SYSLog">
+				select
+					login_name,
+				    opt_content,
+				    client_ip,
+				    DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') create_time,
+				    before_operation,
+				    after_operation,
+				    opt_status
+				from sys_log
+		</select>
+
+	<insert id="addTest">
+		INSERT INTO sys_log(login_name) VALUES(#{loginName})
+	</insert>
+</mapper>

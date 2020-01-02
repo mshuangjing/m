@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: cu
+  profiles:
+    active: dev
+  aop:
+    proxy-target-class: true
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+  jmx:
+    default-domain: byzoro
+mybatis:
+  mapper-locations: classpath:/com/byzoro/mapping/*.xml
+  type-aliases-package: com.byzoro.entity
+  configuration:
+    call-setters-on-nulls: true
+    return-instance-for-empty-row: true

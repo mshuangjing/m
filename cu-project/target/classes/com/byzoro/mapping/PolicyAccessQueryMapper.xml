@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.PolicyAccessQueryMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.PolicyAccessQuery">
+    <id column="policy_access_query_id" jdbcType="BIGINT" property="id" />
+    <result column="policy_access_query_commandid" jdbcType="BIGINT" property="commandid" />
+    <result column="policy_access_query_idc_id" jdbcType="VARCHAR" property="idcId" />
+    <result column="policy_access_query_house_id" jdbcType="VARCHAR" property="houseId" />
+    <result column="policy_access_query_start_time" jdbcType="INTEGER" property="startTime" />
+    <result column="policy_access_query_end_time" jdbcType="INTEGER" property="endTime" />
+    <result column="policy_access_query_src_start_ip" jdbcType="VARCHAR" property="srcStartIp" />
+    <result column="policy_access_query_src_end_ip" jdbcType="VARCHAR" property="srcEndIp" />
+    <result column="policy_access_query_dst_start_ip" jdbcType="VARCHAR" property="dstStartIp" />
+    <result column="policy_access_query_dst_end_ip" jdbcType="VARCHAR" property="dstEndIp" />
+    <result column="policy_access_query_src_port" jdbcType="INTEGER" property="srcPort" />
+    <result column="policy_access_query_dst_port" jdbcType="INTEGER" property="dstPort" />
+    <result column="policy_access_query_protocol" jdbcType="BIT" property="protocol" />
+    <result column="policy_access_query_timestamp" jdbcType="INTEGER" property="timestamp" />
+    <result column="policy_access_query_source" jdbcType="BIT" property="source" />
+    <result column="policy_access_query_status" jdbcType="BIT" property="status" />
+    <result column="policy_access_query_result" jdbcType="BIT" property="result" />
+    <result column="policy_access_query_record_num" jdbcType="INTEGER" property="recordNum" />
+    <result column="policy_access_query_file_number" jdbcType="INTEGER" property="fileNumber" />
+    <result column="policy_access_query_upload_status" jdbcType="BIT" property="uploadStatus" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.byzoro.entity.PolicyAccessQueryWithBLOBs">
+    <result column="policy_access_query_url" jdbcType="LONGVARCHAR" property="url" />
+    <result column="policy_access_query_ftp_path" jdbcType="LONGVARCHAR" property="ftpPath" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    policy_access_query.id as policy_access_query_id, policy_access_query.commandid as policy_access_query_commandid, 
+    policy_access_query.idc_id as policy_access_query_idc_id, policy_access_query.house_id as policy_access_query_house_id, 
+    policy_access_query.start_time as policy_access_query_start_time, policy_access_query.end_time as policy_access_query_end_time, 
+    policy_access_query.src_start_ip as policy_access_query_src_start_ip, policy_access_query.src_end_ip as policy_access_query_src_end_ip, 
+    policy_access_query.dst_start_ip as policy_access_query_dst_start_ip, policy_access_query.dst_end_ip as policy_access_query_dst_end_ip, 
+    policy_access_query.src_port as policy_access_query_src_port, policy_access_query.dst_port as policy_access_query_dst_port, 
+    policy_access_query.protocol as policy_access_query_protocol, policy_access_query.`timestamp` as `policy_access_query_timestamp`, 
+    policy_access_query.`source` as `policy_access_query_source`, policy_access_query.`status` as `policy_access_query_status`, 
+    policy_access_query.`result` as `policy_access_query_result`, policy_access_query.record_num as policy_access_query_record_num, 
+    policy_access_query.file_number as policy_access_query_file_number, policy_access_query.upload_status as policy_access_query_upload_status
+  </sql>
+  <sql id="Blob_Column_List">
+    policy_access_query.url as policy_access_query_url, policy_access_query.ftp_path as policy_access_query_ftp_path
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from policy_access_query policy_access_query
+    where policy_access_query.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from policy_access_query
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyAccessQueryWithBLOBs" useGeneratedKeys="true">
+    insert into policy_access_query (commandid, idc_id, house_id, 
+      start_time, end_time, src_start_ip, 
+      src_end_ip, dst_start_ip, dst_end_ip, 
+      src_port, dst_port, protocol, 
+      `timestamp`, `source`, `status`, 
+      `result`, record_num, file_number, 
+      upload_status, url, ftp_path
+      )
+    values (#{commandid,jdbcType=BIGINT}, #{idcId,jdbcType=VARCHAR}, #{houseId,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=INTEGER}, #{endTime,jdbcType=INTEGER}, #{srcStartIp,jdbcType=VARCHAR}, 
+      #{srcEndIp,jdbcType=VARCHAR}, #{dstStartIp,jdbcType=VARCHAR}, #{dstEndIp,jdbcType=VARCHAR}, 
+      #{srcPort,jdbcType=INTEGER}, #{dstPort,jdbcType=INTEGER}, #{protocol,jdbcType=BIT}, 
+      #{timestamp,jdbcType=INTEGER}, #{source,jdbcType=BIT}, #{status,jdbcType=BIT}, 
+      #{result,jdbcType=BIT}, #{recordNum,jdbcType=INTEGER}, #{fileNumber,jdbcType=INTEGER}, 
+      #{uploadStatus,jdbcType=BIT}, #{url,jdbcType=LONGVARCHAR}, #{ftpPath,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyAccessQueryWithBLOBs" useGeneratedKeys="true">
+    insert into policy_access_query
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        commandid,
+      </if>
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="srcStartIp != null">
+        src_start_ip,
+      </if>
+      <if test="srcEndIp != null">
+        src_end_ip,
+      </if>
+      <if test="dstStartIp != null">
+        dst_start_ip,
+      </if>
+      <if test="dstEndIp != null">
+        dst_end_ip,
+      </if>
+      <if test="srcPort != null">
+        src_port,
+      </if>
+      <if test="dstPort != null">
+        dst_port,
+      </if>
+      <if test="protocol != null">
+        protocol,
+      </if>
+      <if test="timestamp != null">
+        `timestamp`,
+      </if>
+      <if test="source != null">
+        `source`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="result != null">
+        `result`,
+      </if>
+      <if test="recordNum != null">
+        record_num,
+      </if>
+      <if test="fileNumber != null">
+        file_number,
+      </if>
+      <if test="uploadStatus != null">
+        upload_status,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="ftpPath != null">
+        ftp_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="idcId != null">
+        #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=INTEGER},
+      </if>
+      <if test="srcStartIp != null">
+        #{srcStartIp,jdbcType=VARCHAR},
+      </if>
+      <if test="srcEndIp != null">
+        #{srcEndIp,jdbcType=VARCHAR},
+      </if>
+      <if test="dstStartIp != null">
+        #{dstStartIp,jdbcType=VARCHAR},
+      </if>
+      <if test="dstEndIp != null">
+        #{dstEndIp,jdbcType=VARCHAR},
+      </if>
+      <if test="srcPort != null">
+        #{srcPort,jdbcType=INTEGER},
+      </if>
+      <if test="dstPort != null">
+        #{dstPort,jdbcType=INTEGER},
+      </if>
+      <if test="protocol != null">
+        #{protocol,jdbcType=BIT},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=BIT},
+      </if>
+      <if test="recordNum != null">
+        #{recordNum,jdbcType=INTEGER},
+      </if>
+      <if test="fileNumber != null">
+        #{fileNumber,jdbcType=INTEGER},
+      </if>
+      <if test="uploadStatus != null">
+        #{uploadStatus,jdbcType=BIT},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ftpPath != null">
+        #{ftpPath,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.PolicyAccessQueryWithBLOBs">
+    update policy_access_query
+    <set>
+      <if test="commandid != null">
+        commandid = #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="idcId != null">
+        idc_id = #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=INTEGER},
+      </if>
+      <if test="srcStartIp != null">
+        src_start_ip = #{srcStartIp,jdbcType=VARCHAR},
+      </if>
+      <if test="srcEndIp != null">
+        src_end_ip = #{srcEndIp,jdbcType=VARCHAR},
+      </if>
+      <if test="dstStartIp != null">
+        dst_start_ip = #{dstStartIp,jdbcType=VARCHAR},
+      </if>
+      <if test="dstEndIp != null">
+        dst_end_ip = #{dstEndIp,jdbcType=VARCHAR},
+      </if>
+      <if test="srcPort != null">
+        src_port = #{srcPort,jdbcType=INTEGER},
+      </if>
+      <if test="dstPort != null">
+        dst_port = #{dstPort,jdbcType=INTEGER},
+      </if>
+      <if test="protocol != null">
+        protocol = #{protocol,jdbcType=BIT},
+      </if>
+      <if test="timestamp != null">
+        `timestamp` = #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        `source` = #{source,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+      <if test="result != null">
+        `result` = #{result,jdbcType=BIT},
+      </if>
+      <if test="recordNum != null">
+        record_num = #{recordNum,jdbcType=INTEGER},
+      </if>
+      <if test="fileNumber != null">
+        file_number = #{fileNumber,jdbcType=INTEGER},
+      </if>
+      <if test="uploadStatus != null">
+        upload_status = #{uploadStatus,jdbcType=BIT},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ftpPath != null">
+        ftp_path = #{ftpPath,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.byzoro.entity.PolicyAccessQueryWithBLOBs">
+    update policy_access_query
+    set commandid = #{commandid,jdbcType=BIGINT},
+      idc_id = #{idcId,jdbcType=VARCHAR},
+      house_id = #{houseId,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=INTEGER},
+      end_time = #{endTime,jdbcType=INTEGER},
+      src_start_ip = #{srcStartIp,jdbcType=VARCHAR},
+      src_end_ip = #{srcEndIp,jdbcType=VARCHAR},
+      dst_start_ip = #{dstStartIp,jdbcType=VARCHAR},
+      dst_end_ip = #{dstEndIp,jdbcType=VARCHAR},
+      src_port = #{srcPort,jdbcType=INTEGER},
+      dst_port = #{dstPort,jdbcType=INTEGER},
+      protocol = #{protocol,jdbcType=BIT},
+      `timestamp` = #{timestamp,jdbcType=INTEGER},
+      `source` = #{source,jdbcType=BIT},
+      `status` = #{status,jdbcType=BIT},
+      `result` = #{result,jdbcType=BIT},
+      record_num = #{recordNum,jdbcType=INTEGER},
+      file_number = #{fileNumber,jdbcType=INTEGER},
+      upload_status = #{uploadStatus,jdbcType=BIT},
+      url = #{url,jdbcType=LONGVARCHAR},
+      ftp_path = #{ftpPath,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.PolicyAccessQuery">
+    update policy_access_query
+    set commandid = #{commandid,jdbcType=BIGINT},
+      idc_id = #{idcId,jdbcType=VARCHAR},
+      house_id = #{houseId,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=INTEGER},
+      end_time = #{endTime,jdbcType=INTEGER},
+      src_start_ip = #{srcStartIp,jdbcType=VARCHAR},
+      src_end_ip = #{srcEndIp,jdbcType=VARCHAR},
+      dst_start_ip = #{dstStartIp,jdbcType=VARCHAR},
+      dst_end_ip = #{dstEndIp,jdbcType=VARCHAR},
+      src_port = #{srcPort,jdbcType=INTEGER},
+      dst_port = #{dstPort,jdbcType=INTEGER},
+      protocol = #{protocol,jdbcType=BIT},
+      `timestamp` = #{timestamp,jdbcType=INTEGER},
+      `source` = #{source,jdbcType=BIT},
+      `status` = #{status,jdbcType=BIT},
+      `result` = #{result,jdbcType=BIT},
+      record_num = #{recordNum,jdbcType=INTEGER},
+      file_number = #{fileNumber,jdbcType=INTEGER},
+      upload_status = #{uploadStatus,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

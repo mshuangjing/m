@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.LogActiveStateMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.LogActiveState">
+    <id column="log_active_state_id" jdbcType="BIGINT" property="id" />
+    <result column="log_active_state_idc_id" jdbcType="VARCHAR" property="idcId" />
+    <result column="log_active_state_house_amount" jdbcType="INTEGER" property="houseAmount" />
+    <result column="log_active_state_errhouse_amount" jdbcType="INTEGER" property="errhouseAmount" />
+    <result column="log_active_state_timestamp" jdbcType="INTEGER" property="timestamp" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.byzoro.entity.LogActiveState">
+    <result column="log_active_state_errhouse_id" jdbcType="LONGVARCHAR" property="errhouseId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    log_active_state.id as log_active_state_id, log_active_state.idc_id as log_active_state_idc_id, 
+    log_active_state.house_amount as log_active_state_house_amount, log_active_state.errhouse_amount as log_active_state_errhouse_amount, 
+    log_active_state.`timestamp` as `log_active_state_timestamp`
+  </sql>
+  <sql id="Blob_Column_List">
+    log_active_state.errhouse_id as log_active_state_errhouse_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from log_active_state log_active_state
+    where log_active_state.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from log_active_state
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.LogActiveState" useGeneratedKeys="true">
+    insert into log_active_state (idc_id, house_amount, errhouse_amount, 
+      `timestamp`, errhouse_id)
+    values (#{idcId,jdbcType=VARCHAR}, #{houseAmount,jdbcType=INTEGER}, #{errhouseAmount,jdbcType=INTEGER}, 
+      #{timestamp,jdbcType=INTEGER}, #{errhouseId,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.LogActiveState" useGeneratedKeys="true">
+    insert into log_active_state
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="houseAmount != null">
+        house_amount,
+      </if>
+      <if test="errhouseAmount != null">
+        errhouse_amount,
+      </if>
+      <if test="timestamp != null">
+        `timestamp`,
+      </if>
+      <if test="errhouseId != null">
+        errhouse_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idcId != null">
+        #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAmount != null">
+        #{houseAmount,jdbcType=INTEGER},
+      </if>
+      <if test="errhouseAmount != null">
+        #{errhouseAmount,jdbcType=INTEGER},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="errhouseId != null">
+        #{errhouseId,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.LogActiveState">
+    update log_active_state
+    <set>
+      <if test="idcId != null">
+        idc_id = #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAmount != null">
+        house_amount = #{houseAmount,jdbcType=INTEGER},
+      </if>
+      <if test="errhouseAmount != null">
+        errhouse_amount = #{errhouseAmount,jdbcType=INTEGER},
+      </if>
+      <if test="timestamp != null">
+        `timestamp` = #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="errhouseId != null">
+        errhouse_id = #{errhouseId,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.byzoro.entity.LogActiveState">
+    update log_active_state
+    set idc_id = #{idcId,jdbcType=VARCHAR},
+      house_amount = #{houseAmount,jdbcType=INTEGER},
+      errhouse_amount = #{errhouseAmount,jdbcType=INTEGER},
+      `timestamp` = #{timestamp,jdbcType=INTEGER},
+      errhouse_id = #{errhouseId,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.LogActiveState">
+    update log_active_state
+    set idc_id = #{idcId,jdbcType=VARCHAR},
+      house_amount = #{houseAmount,jdbcType=INTEGER},
+      errhouse_amount = #{errhouseAmount,jdbcType=INTEGER},
+      `timestamp` = #{timestamp,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

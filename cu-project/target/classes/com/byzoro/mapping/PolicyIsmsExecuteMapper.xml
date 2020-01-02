@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.PolicyIsmsExecuteMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.PolicyIsmsExecute">
+    <id column="policy_isms_execute_id" jdbcType="BIGINT" property="id" />
+    <result column="policy_isms_execute_commandid" jdbcType="BIGINT" property="commandid" />
+    <result column="policy_isms_execute_idc_id" jdbcType="VARCHAR" property="idcId" />
+    <result column="policy_isms_execute_controlsId" jdbcType="VARCHAR" property="controlsid" />
+    <result column="policy_isms_execute_timestamp" jdbcType="INTEGER" property="timestamp" />
+    <result column="policy_isms_execute_count" jdbcType="BIGINT" property="count" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    policy_isms_execute.id as policy_isms_execute_id, policy_isms_execute.commandid as policy_isms_execute_commandid, 
+    policy_isms_execute.idc_id as policy_isms_execute_idc_id, policy_isms_execute.controlsId as policy_isms_execute_controlsId, 
+    policy_isms_execute.`timestamp` as `policy_isms_execute_timestamp`, policy_isms_execute.`count` as `policy_isms_execute_count`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from policy_isms_execute policy_isms_execute
+    where policy_isms_execute.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from policy_isms_execute
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyIsmsExecute" useGeneratedKeys="true">
+    insert into policy_isms_execute (commandid, idc_id, controlsId, 
+      `timestamp`, `count`)
+    values (#{commandid,jdbcType=BIGINT}, #{idcId,jdbcType=VARCHAR}, #{controlsid,jdbcType=VARCHAR}, 
+      #{timestamp,jdbcType=INTEGER}, #{count,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyIsmsExecute" useGeneratedKeys="true">
+    insert into policy_isms_execute
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        commandid,
+      </if>
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="controlsid != null">
+        controlsId,
+      </if>
+      <if test="timestamp != null">
+        `timestamp`,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="idcId != null">
+        #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="controlsid != null">
+        #{controlsid,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.PolicyIsmsExecute">
+    update policy_isms_execute
+    <set>
+      <if test="commandid != null">
+        commandid = #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="idcId != null">
+        idc_id = #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="controlsid != null">
+        controlsId = #{controlsid,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        `timestamp` = #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.PolicyIsmsExecute">
+    update policy_isms_execute
+    set commandid = #{commandid,jdbcType=BIGINT},
+      idc_id = #{idcId,jdbcType=VARCHAR},
+      controlsId = #{controlsid,jdbcType=VARCHAR},
+      `timestamp` = #{timestamp,jdbcType=INTEGER},
+      `count` = #{count,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

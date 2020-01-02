@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.BasicIptransMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.BasicIptrans">
+    <id column="basic_iptrans_id" jdbcType="BIGINT" property="id" />
+    <result column="basic_iptrans_domain_id" jdbcType="BIGINT" property="domainId" />
+    <result column="basic_iptrans_hhid" jdbcType="BIGINT" property="hhid" />
+    <result column="basic_iptrans_internet_start_ip" jdbcType="VARCHAR" property="internetStartIp" />
+    <result column="basic_iptrans_internet_end_ip" jdbcType="VARCHAR" property="internetEndIp" />
+    <result column="basic_iptrans_net_start_ip" jdbcType="VARCHAR" property="netStartIp" />
+    <result column="basic_iptrans_net_end_ip" jdbcType="VARCHAR" property="netEndIp" />
+    <result column="basic_iptrans_status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    basic_iptrans.id as basic_iptrans_id, basic_iptrans.domain_id as basic_iptrans_domain_id, 
+    basic_iptrans.hhid as basic_iptrans_hhid, basic_iptrans.internet_start_ip as basic_iptrans_internet_start_ip, 
+    basic_iptrans.internet_end_ip as basic_iptrans_internet_end_ip, basic_iptrans.net_start_ip as basic_iptrans_net_start_ip, 
+    basic_iptrans.net_end_ip as basic_iptrans_net_end_ip, basic_iptrans.`status` as `basic_iptrans_status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basic_iptrans basic_iptrans
+    where basic_iptrans.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from basic_iptrans
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicIptrans" useGeneratedKeys="true">
+    insert into basic_iptrans (domain_id, hhid, internet_start_ip, 
+      internet_end_ip, net_start_ip, net_end_ip, 
+      `status`)
+    values (#{domainId,jdbcType=BIGINT}, #{hhid,jdbcType=BIGINT}, #{internetStartIp,jdbcType=VARCHAR}, 
+      #{internetEndIp,jdbcType=VARCHAR}, #{netStartIp,jdbcType=VARCHAR}, #{netEndIp,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicIptrans" useGeneratedKeys="true">
+    insert into basic_iptrans
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="domainId != null">
+        domain_id,
+      </if>
+      <if test="hhid != null">
+        hhid,
+      </if>
+      <if test="internetStartIp != null">
+        internet_start_ip,
+      </if>
+      <if test="internetEndIp != null">
+        internet_end_ip,
+      </if>
+      <if test="netStartIp != null">
+        net_start_ip,
+      </if>
+      <if test="netEndIp != null">
+        net_end_ip,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="domainId != null">
+        #{domainId,jdbcType=BIGINT},
+      </if>
+      <if test="hhid != null">
+        #{hhid,jdbcType=BIGINT},
+      </if>
+      <if test="internetStartIp != null">
+        #{internetStartIp,jdbcType=VARCHAR},
+      </if>
+      <if test="internetEndIp != null">
+        #{internetEndIp,jdbcType=VARCHAR},
+      </if>
+      <if test="netStartIp != null">
+        #{netStartIp,jdbcType=VARCHAR},
+      </if>
+      <if test="netEndIp != null">
+        #{netEndIp,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.BasicIptrans">
+    update basic_iptrans
+    <set>
+      <if test="domainId != null">
+        domain_id = #{domainId,jdbcType=BIGINT},
+      </if>
+      <if test="hhid != null">
+        hhid = #{hhid,jdbcType=BIGINT},
+      </if>
+      <if test="internetStartIp != null">
+        internet_start_ip = #{internetStartIp,jdbcType=VARCHAR},
+      </if>
+      <if test="internetEndIp != null">
+        internet_end_ip = #{internetEndIp,jdbcType=VARCHAR},
+      </if>
+      <if test="netStartIp != null">
+        net_start_ip = #{netStartIp,jdbcType=VARCHAR},
+      </if>
+      <if test="netEndIp != null">
+        net_end_ip = #{netEndIp,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.BasicIptrans">
+    update basic_iptrans
+    set domain_id = #{domainId,jdbcType=BIGINT},
+      hhid = #{hhid,jdbcType=BIGINT},
+      internet_start_ip = #{internetStartIp,jdbcType=VARCHAR},
+      internet_end_ip = #{internetEndIp,jdbcType=VARCHAR},
+      net_start_ip = #{netStartIp,jdbcType=VARCHAR},
+      net_end_ip = #{netEndIp,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

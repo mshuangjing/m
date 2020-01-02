@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.SetingConfigMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.SetingConfig">
+    <id column="seting_config_config_flag" jdbcType="BIT" property="configFlag" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Boolean">
+    delete from seting_config
+    where config_flag = #{configFlag,jdbcType=BIT}
+  </delete>
+  <insert id="insert" parameterType="com.byzoro.entity.SetingConfig">
+    insert into seting_config (config_flag)
+    values (#{configFlag,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.byzoro.entity.SetingConfig">
+    insert into seting_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="configFlag != null">
+        config_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="configFlag != null">
+        #{configFlag,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

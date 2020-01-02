@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.PolicyActivePeriodMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.PolicyActivePeriod">
+    <id column="policy_active_period_id" jdbcType="BIGINT" property="id" />
+    <result column="policy_active_period_prov_id" jdbcType="VARCHAR" property="provId" />
+    <result column="policy_active_period_house_id" jdbcType="VARCHAR" property="houseId" />
+    <result column="policy_active_period_report_time" jdbcType="INTEGER" property="reportTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    policy_active_period.id as policy_active_period_id, policy_active_period.prov_id as policy_active_period_prov_id, 
+    policy_active_period.house_id as policy_active_period_house_id, policy_active_period.report_time as policy_active_period_report_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from policy_active_period policy_active_period
+    where policy_active_period.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from policy_active_period
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyActivePeriod" useGeneratedKeys="true">
+    insert into policy_active_period (prov_id, house_id, report_time
+      )
+    values (#{provId,jdbcType=VARCHAR}, #{houseId,jdbcType=VARCHAR}, #{reportTime,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyActivePeriod" useGeneratedKeys="true">
+    insert into policy_active_period
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="provId != null">
+        prov_id,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="reportTime != null">
+        report_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="provId != null">
+        #{provId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null">
+        #{reportTime,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.PolicyActivePeriod">
+    update policy_active_period
+    <set>
+      <if test="provId != null">
+        prov_id = #{provId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null">
+        report_time = #{reportTime,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.PolicyActivePeriod">
+    update policy_active_period
+    set prov_id = #{provId,jdbcType=VARCHAR},
+      house_id = #{houseId,jdbcType=VARCHAR},
+      report_time = #{reportTime,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

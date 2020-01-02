@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.PolicyBasicDataMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.PolicyBasicData">
+    <id column="policy_basic_data_id" jdbcType="BIGINT" property="id" />
+    <result column="policy_basic_data_commandid" jdbcType="BIGINT" property="commandid" />
+    <result column="policy_basic_data_type" jdbcType="BIT" property="type" />
+    <result column="policy_basic_data_start_time" jdbcType="INTEGER" property="startTime" />
+    <result column="policy_basic_data_end_time" jdbcType="INTEGER" property="endTime" />
+    <result column="policy_basic_data_idc_id" jdbcType="VARCHAR" property="idcId" />
+    <result column="policy_basic_data_timestamp" jdbcType="INTEGER" property="timestamp" />
+    <result column="policy_basic_data_report" jdbcType="BIT" property="report" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.byzoro.entity.PolicyBasicDataWithBLOBs">
+    <result column="policy_basic_data_user_id" jdbcType="LONGVARCHAR" property="userId" />
+    <result column="policy_basic_data_house_id" jdbcType="LONGVARCHAR" property="houseId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    policy_basic_data.id as policy_basic_data_id, policy_basic_data.commandid as policy_basic_data_commandid, 
+    policy_basic_data.`type` as `policy_basic_data_type`, policy_basic_data.start_time as policy_basic_data_start_time, 
+    policy_basic_data.end_time as policy_basic_data_end_time, policy_basic_data.idc_id as policy_basic_data_idc_id, 
+    policy_basic_data.`timestamp` as `policy_basic_data_timestamp`, policy_basic_data.report as policy_basic_data_report
+  </sql>
+  <sql id="Blob_Column_List">
+    policy_basic_data.user_id as policy_basic_data_user_id, policy_basic_data.house_id as policy_basic_data_house_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from policy_basic_data policy_basic_data
+    where policy_basic_data.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from policy_basic_data
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyBasicDataWithBLOBs" useGeneratedKeys="true">
+    insert into policy_basic_data (commandid, `type`, start_time, 
+      end_time, idc_id, `timestamp`, 
+      report, user_id, house_id
+      )
+    values (#{commandid,jdbcType=BIGINT}, #{type,jdbcType=BIT}, #{startTime,jdbcType=INTEGER}, 
+      #{endTime,jdbcType=INTEGER}, #{idcId,jdbcType=VARCHAR}, #{timestamp,jdbcType=INTEGER}, 
+      #{report,jdbcType=BIT}, #{userId,jdbcType=LONGVARCHAR}, #{houseId,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyBasicDataWithBLOBs" useGeneratedKeys="true">
+    insert into policy_basic_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        commandid,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="timestamp != null">
+        `timestamp`,
+      </if>
+      <if test="report != null">
+        report,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=INTEGER},
+      </if>
+      <if test="idcId != null">
+        #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="report != null">
+        #{report,jdbcType=BIT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.PolicyBasicDataWithBLOBs">
+    update policy_basic_data
+    <set>
+      <if test="commandid != null">
+        commandid = #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=BIT},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=INTEGER},
+      </if>
+      <if test="idcId != null">
+        idc_id = #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        `timestamp` = #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="report != null">
+        report = #{report,jdbcType=BIT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.byzoro.entity.PolicyBasicDataWithBLOBs">
+    update policy_basic_data
+    set commandid = #{commandid,jdbcType=BIGINT},
+      `type` = #{type,jdbcType=BIT},
+      start_time = #{startTime,jdbcType=INTEGER},
+      end_time = #{endTime,jdbcType=INTEGER},
+      idc_id = #{idcId,jdbcType=VARCHAR},
+      `timestamp` = #{timestamp,jdbcType=INTEGER},
+      report = #{report,jdbcType=BIT},
+      user_id = #{userId,jdbcType=LONGVARCHAR},
+      house_id = #{houseId,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.PolicyBasicData">
+    update policy_basic_data
+    set commandid = #{commandid,jdbcType=BIGINT},
+      `type` = #{type,jdbcType=BIT},
+      start_time = #{startTime,jdbcType=INTEGER},
+      end_time = #{endTime,jdbcType=INTEGER},
+      idc_id = #{idcId,jdbcType=VARCHAR},
+      `timestamp` = #{timestamp,jdbcType=INTEGER},
+      report = #{report,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

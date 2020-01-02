@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.PolicyBasicCommandrecordMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.PolicyBasicCommandrecord">
+    <id column="policy_basic_commandrecord_id" jdbcType="BIGINT" property="id" />
+    <result column="policy_basic_commandrecord_commandId" jdbcType="BIGINT" property="commandid" />
+    <result column="policy_basic_commandrecord_idcId" jdbcType="VARCHAR" property="idcid" />
+    <result column="policy_basic_commandrecord_controlsId" jdbcType="BIGINT" property="controlsid" />
+    <result column="policy_basic_commandrecord_timestamp" jdbcType="INTEGER" property="timestamp" />
+    <result column="policy_basic_commandrecord_view" jdbcType="BIGINT" property="view" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    policy_basic_commandrecord.id as policy_basic_commandrecord_id, policy_basic_commandrecord.commandId as policy_basic_commandrecord_commandId, 
+    policy_basic_commandrecord.idcId as policy_basic_commandrecord_idcId, policy_basic_commandrecord.controlsId as policy_basic_commandrecord_controlsId, 
+    policy_basic_commandrecord.`timestamp` as `policy_basic_commandrecord_timestamp`, 
+    policy_basic_commandrecord.`view` as `policy_basic_commandrecord_view`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from policy_basic_commandrecord policy_basic_commandrecord
+    where policy_basic_commandrecord.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from policy_basic_commandrecord
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyBasicCommandrecord" useGeneratedKeys="true">
+    insert into policy_basic_commandrecord (commandId, idcId, controlsId, 
+      `timestamp`, `view`)
+    values (#{commandid,jdbcType=BIGINT}, #{idcid,jdbcType=VARCHAR}, #{controlsid,jdbcType=BIGINT}, 
+      #{timestamp,jdbcType=INTEGER}, #{view,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyBasicCommandrecord" useGeneratedKeys="true">
+    insert into policy_basic_commandrecord
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        commandId,
+      </if>
+      <if test="idcid != null">
+        idcId,
+      </if>
+      <if test="controlsid != null">
+        controlsId,
+      </if>
+      <if test="timestamp != null">
+        `timestamp`,
+      </if>
+      <if test="view != null">
+        `view`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="idcid != null">
+        #{idcid,jdbcType=VARCHAR},
+      </if>
+      <if test="controlsid != null">
+        #{controlsid,jdbcType=BIGINT},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="view != null">
+        #{view,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.PolicyBasicCommandrecord">
+    update policy_basic_commandrecord
+    <set>
+      <if test="commandid != null">
+        commandId = #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="idcid != null">
+        idcId = #{idcid,jdbcType=VARCHAR},
+      </if>
+      <if test="controlsid != null">
+        controlsId = #{controlsid,jdbcType=BIGINT},
+      </if>
+      <if test="timestamp != null">
+        `timestamp` = #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="view != null">
+        `view` = #{view,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.PolicyBasicCommandrecord">
+    update policy_basic_commandrecord
+    set commandId = #{commandid,jdbcType=BIGINT},
+      idcId = #{idcid,jdbcType=VARCHAR},
+      controlsId = #{controlsid,jdbcType=BIGINT},
+      `timestamp` = #{timestamp,jdbcType=INTEGER},
+      `view` = #{view,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

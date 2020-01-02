@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.byzoro.mapper.SYSUserMapper">
+	<resultMap id="BaseResultMap" type="com.byzoro.entity.SYSUser">
+		<id column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="uname" property="uname" jdbcType="VARCHAR" />
+		<result column="pwd" property="pwd" jdbcType="VARCHAR" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+	    <result column="email" jdbcType="VARCHAR" property="email" />
+	    <result column="status" property="status" jdbcType="VARCHAR" />
+	    <result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="user_type" property="userType" jdbcType="INTEGER" />
+		<result column="map_lng" property="mapLng" jdbcType="VARCHAR" />
+		<result column="map_lat" property="mapLat" jdbcType="VARCHAR" />
+		<result column="map_level" property="mapLevel" jdbcType="VARCHAR" />
+	   	<result column="login_error_num" property="loginErrorNum" jdbcType="INTEGER" />
+		<result column="role_id" property="roleId" jdbcType="INTEGER" />
+		<result column="whiteState" property="whiteState" jdbcType="INTEGER" />
+		<collection property="userRoleList" column="user_id"
+			ofType="SYSUserRole" resultMap="com.byzoro.mapper.SYSUserRoleMapper.BaseResultMap" />
+	</resultMap>
+	<resultMap id="treeDataResultMap" type="com.byzoro.entity.SYSResource" >
+		<id column="resource_id" property="resourceId" jdbcType="INTEGER" />
+    	<result column="resource_name" property="resourceName" jdbcType="VARCHAR" />
+    	<result column="resource_href" property="resourceHref" jdbcType="VARCHAR" />
+    	<result column="resource_image" property="resourceImage" jdbcType="VARCHAR" />
+    	<result column="resource_type" property="resourceType" jdbcType="VARCHAR" />
+    	<result column="resource_desc" property="resourceDesc" jdbcType="VARCHAR" />
+    	<result column="resource_remark" property="resourceRemark" jdbcType="VARCHAR" />
+    	<result column="is_active" property="isActive" jdbcType="VARCHAR" />
+    	<result column="sort_index" property="sortIndex" jdbcType="INTEGER" />
+    	<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    	<result column="is_leaf" property="isLeaf" jdbcType="VARCHAR" />
+    	<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    	<result column="temp_one" property="tempOne" jdbcType="VARCHAR" />
+    	<association property="parent" column="parent_id" select="getResById"></association>
+		<collection property="childList" column="resource_id" javaType="ArrayList" ofType="com.byzoro.entity.SYSResource" select="getResChild" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_id, uname, pwd, phone, email, status, type,login_error_num
+	</sql>
+	<select id="getResById" resultMap="treeDataResultMap" parameterType="int">
+		select * from t_sys_resource
+		where resource_id = #{parent_id}
+	</select>
+	<select id="getResChild" resultMap="treeDataResultMap" parameterType="int">
+		select * from t_sys_resource
+		where parent_id = #{resource_id}
+	</select>
+<!-- 	<select id="getUserResTreeDataByUname" parameterType="java.lang.String" resultMap="treeDataResultMap"> -->
+<!-- 		SELECT * FROM t_sys_resource; -->
+		
+<!-- </select>  -->
+<!-- 	<select id="getUserResTreeDataByUname" parameterType="java.lang.String" resultMap="treeDataResultMap"> -->
+<!-- 		SELECT  -->
+<!-- 		p.resource_id, -->
+<!-- 		p.resource_name, -->
+<!-- 		p.resource_href, -->
+<!-- 		p.resource_image, -->
+<!-- 		p.resource_type, -->
+<!-- 		p.resource_desc, -->
+<!-- 		p.resource_remark,  -->
+<!--     	p.is_active,  -->
+<!--     	p.sort_index,  -->
+<!--     	p.parent_id,  -->
+<!--     	p.is_leaf,  -->
+<!--     	p.create_time,  -->
+<!--     	p.temp_one, -->
+<!--     	c.resource_id AS c_resource_id, -->
+<!-- 		c.resource_name AS c_resource_name, -->
+<!-- 		c.resource_href AS c_resource_href, -->
+<!-- 		c.resource_image AS c_resource_image, -->
+<!-- 		c.resource_type AS c_resource_type, -->
+<!-- 		c.resource_desc AS c_resource_desc, -->
+<!-- 		c.resource_remark AS c_resource_remark,  -->
+<!--     	c.is_active AS c_is_active,  -->
+<!--     	c.sort_index AS c_sort_index,  -->
+<!--     	c.parent_id AS c_parent_id,  -->
+<!--     	c.is_leaf AS c_is_leaf,  -->
+<!--     	c.create_time AS c_create_time,  -->
+<!--     	c.temp_one AS c_temp_one -->
+<!-- 		FROM t_sys_resource p -->
+<!-- 		INNER JOIN t_sys_resource c ON c.parent_id = p.resource_id; -->
+<!-- </select>  -->
+<select id="getUserByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		user_id,
+		uname,
+		pwd,
+		phone, 
+		email,
+		status,
+		type,
+		login_error_num
+		from t_sys_user
+		where user_id = #{userId}
+	</select>
+	<!--通过id查询用户信息-->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+			u.user_id,
+			u.uname,
+			u.pwd,
+			u.phone,
+			u.email,
+			u.status,
+			u.type,
+			u.user_type,
+			u.map_lng,
+			u.map_lat,
+			u.map_level,
+			u.whiteState,
+			o.role_id,
+			o.user_id,
+			r.role_name
+		from t_sys_user u
+		left join t_sys_user_role o on u.user_id = o.user_id
+		left join t_sys_role r on o.role_id = r.role_id
+		where u.user_id = #{userId}
+	</select>
+	<select id="getUserResListByUname"
+		resultMap="com.byzoro.mapper.SYSResourceMapper.BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		r.resource_id, 
+		r.resource_name, 
+		r.resource_href, 
+		r.resource_image, 
+		r.resource_type, 
+		r.resource_desc, 
+		r.resource_remark, 
+    	r.is_active, 
+    	r.sort_index, 
+    	r.parent_id, 
+    	r.is_leaf, 
+    	r.create_time, 
+    	r.temp_one
+		from
+		t_sys_user u,t_sys_user_resource o,t_sys_resource r
+		where
+		 u.user_id = o.user_id 
+		and o.resource_id = r.resource_id
+		and u.uname = #{uname}
+	</select>
+	<select id="getRoles"
+		resultMap="com.byzoro.mapper.SYSRoleMapper.BaseResultMap"
+		parameterType="java.lang.Long">
+		select r.role_id,r.role_name
+		from t_sys_user u
+		left join
+		t_sys_user_role o on u.user_id = o.user_id
+		left join t_sys_role r on o.role_id = r.role_id
+		where u.user_id = #{userId}
+	</select>
+	<select id="getRolesByUname"
+		resultMap="com.byzoro.mapper.SYSRoleMapper.BaseResultMap"
+		parameterType="java.lang.String">
+		select r.role_id,r.role_name
+		from t_sys_user u
+		left join t_sys_user_role o on u.user_id = o.user_id
+		left join t_sys_role r on o.role_id = r.role_id
+		where u.uname = #{uname}
+	</select>
+	<select id="getUserRoles" resultType="SYSUserRole"
+		parameterType="java.lang.Long">
+		select
+		user_id as userId,role_id as roleId
+		from
+		t_sys_user_role
+		where user_id = #{userId,jdbcType=BIGINT}
+	</select>
+	<select id="getSYSUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_user 
+		<where>
+			<if test="userId != null and userId != ''">user_id = #{userId,jdbcType=BIGINT}</if>
+			<if test="pwd != null and pwd != ''">pwd = #{pwd,jdbcType=VARCHAR}</if>
+			<if test="uname != null and uname != ''">uname = #{uname,jdbcType=VARCHAR}</if>
+		</where>
+	</select>
+	
+	<sql id="QueryCondition">
+		<where>
+			<if test="userId != null and userId != ''">user_id = #{userId,jdbcType=BIGINT}</if>
+			<if test="pwd != null and pwd != ''">pwd = #{pwd,jdbcType=VARCHAR}</if>
+			<if test="uname != null and uname != ''">uname LIKE #{uname,jdbcType=VARCHAR}</if>
+			<if test="email != null and email != ''">email LIKE #{email,jdbcType=VARCHAR}</if>
+			<if test="phone != null and phone != ''">phone LIKE #{phone,jdbcType=VARCHAR}</if>
+			<if test="status != null and status != ''">status = #{status,jdbcType=VARCHAR}</if>
+			<if test="type != null and type != ''">type = #{type,jdbcType=VARCHAR}</if>
+		</where>
+	</sql>
+	
+	<!-- 获取用户 -->
+	<select id="getSYSUserList" resultType="java.util.HashMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_user 
+		<include refid="QueryCondition"></include>
+		ORDER BY user_id desc
+		limit
+		#{page,jdbcType=INTEGER},#{row,jdbcType=INTEGER}
+	</select>
+	<select id="getCount" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select
+		count(*)
+		from t_sys_user
+		<include refid="QueryCondition"></include>
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		DELETE tsu,
+		 tsur
+		FROM
+			t_sys_user tsu
+			LEFT JOIN t_sys_user_role tsur ON tsur.user_id = tsu.user_id
+		WHERE
+		  	tsu.user_id = #{userId,jdbcType=BIGINT}
+	</delete>
+	<!--增加用户-->
+  <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId" parameterType="com.byzoro.entity.SYSUser">
+    insert into t_sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="uname != null">
+        uname,
+      </if>
+      <if test="pwd != null">
+        pwd,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="userType != null">
+		user_type,
+      </if>
+      <if test="mapLng != null">
+	  	map_lng,
+      </if>
+      <if test="mapLat != null">
+	  	map_lat,
+      </if>
+      <if test="mapLevel != null">
+	  	map_level,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="uname != null">
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="mapLng != null">
+        #{mapLng,jdbcType=INTEGER},
+      </if>
+      <if test="mapLat != null">
+        #{mapLat,jdbcType=VARCHAR},
+      </if>
+      <if test="mapLevel != null">
+        #{mapLevel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.SYSUser">
+    update t_sys_user
+    <set>
+      <if test="uname != null">
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="mapLng != null">
+	  	map_lng = #{mapLng,jdbcType=VARCHAR},
+      </if>
+      <if test="mapLat != null">
+	  	map_lat = #{mapLat,jdbcType=VARCHAR},
+      </if>
+      <if test="mapLevel != null">
+	  	map_level = #{mapLevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.SYSUser">
+    update t_sys_user
+    set uname = #{uname,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  
+  <update id="checkUser" parameterType="java.util.Map" >
+		  update t_sys_user
+	      set status = #{status,jdbcType=VARCHAR}
+    	  where user_id = #{userId,jdbcType=BIGINT}
+  	</update>
+  	
+  	<!-- 删除用户和资源的关系 -->
+	<delete id="deleteResourceByUserId" parameterType="java.lang.String">
+		delete from t_sys_user_resource where user_id = #{userId,jdbcType=INTEGER}
+	</delete>
+	<!-- 插入用户和资源的关系 -->
+	 <insert id="insertRelationOfUserAndResource" parameterType="java.util.List">
+		insert into t_sys_user_resource (user_id,resource_id)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.userId},#{item.resourceId})
+		</foreach>
+	</insert> 
+	
+	
+	<select id="getRecordByName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_user
+		where uname = #{name,jdbcType=VARCHAR}
+	</select>
+	
+	
+ 	 <update id="updateLoginErrorNum" parameterType="java.util.Map" >
+ 	 	update t_sys_user set  login_error_num = #{loginErrorNum}
+ 	 	where uname = #{uname}
+ 	 </update>
+
+ 	 <update id="updateUserLock">
+ 	 	update t_sys_user set  login_error_num = 0
+ 	 </update>
+
+
+ 	 <delete id="deleteUser" parameterType="java.lang.String">
+		delete from t_sys_user where user_id =#{userId}
+	</delete>
+
+	<!--通过userId更新白名单状态-->
+	<update id="updateWhiteState" parameterType="java.util.Map">
+		UPDATE t_sys_user set whiteState = #{state}
+		WHERE 1=1
+		<if test="user_id != null and user_id != ''">
+			AND user_id = #{user_id}
+		</if>
+	</update>
+
+	<!--通过roleId查询用户-->
+	<select id="queryUserByRoleId" parameterType="long" resultMap="BaseResultMap">
+		SELECT
+			tsu.*
+		FROM
+			t_sys_user_role tsur,
+			t_sys_user tsu
+		WHERE
+			tsur.user_id = tsu.user_id
+		AND tsur.role_id = #{roleId}
+	</select>
+	<!--分页查询用户列表-->
+	<select id="getSYSUserListNew" resultType="java.util.HashMap"
+			parameterType="java.util.Map">
+		select
+			su.map_lng mapLng
+			,su.map_lat mapLat
+			,su.map_level mapLevel
+			,su.user_id userId
+			,su.uname uname
+			,su.email email
+			,su.user_type userType
+            ,UNIX_TIMESTAMP(su.create_time) createTime
+			,sr.role_name roleName
+			,su.last_login_time lastLoginTime
+		from t_sys_user su
+		LEFT JOIN t_sys_user_role sur
+		on su.user_id = sur.user_id
+		LEFT JOIN t_sys_role sr
+		on sur.role_id = sr.role_id
+		<include refid="QueryCondition1"></include>
+		<if test="sort != null and sort != ''">
+			ORDER BY su.${sort} ${order}
+		</if>
+		<if test="sort == null or sort == ''">
+			ORDER BY su.user_id desc
+		</if>
+		limit
+		#{pageCurr,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<select id="getCountNew" resultType="java.lang.Integer"
+			parameterType="java.util.Map">
+		select
+		count(*)
+		from t_sys_user su
+		LEFT JOIN t_sys_user_role sur
+		on su.user_id = sur.user_id
+		LEFT JOIN t_sys_role sr
+		on sur.role_id = sr.role_id
+		<include refid="QueryCondition1"></include>
+	</select>
+	<sql id="QueryCondition1">
+		<where>
+			<if test="uname != null and uname != ''">
+				and su.uname LIKE CONCAT('%','${uname}','%')
+			</if>
+			<if test="roleId != null and roleId != ''">
+				and sur.role_id = #{roleId,jdbcType=VARCHAR}
+			</if>
+			<if test="userType != null and userType != ''">
+				and su.user_type = #{userType,jdbcType=VARCHAR}
+			</if>
+			<if test="FlagInfo != null and FlagInfo != ''">
+				and su.user_id > 1
+			</if>
+		</where>
+	</sql>
+
+	<!--修改用户最后登录时间-->
+	<update id="updateLastloginTimeByUserId">
+		UPDATE t_sys_user
+		SET last_login_time = #{currentTime}
+		WHERE
+			user_id = #{userId}
+	</update>
+	<select id="queryWhileStateByUname" resultType="Integer">
+		SELECT
+			IFNULL(
+				(
+					SELECT
+						whiteState
+					FROM
+						t_sys_user
+					WHERE
+						uname = #{uname}
+				),
+				0
+			)
+	</select>
+
+	<!--重置密码-->
+	<update id="resetPwd" parameterType="String">
+		update t_sys_user
+		set pwd = #{pwd,jdbcType=VARCHAR}
+		where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.DeviceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.DeviceInfo">
+    <id column="device_info_id" jdbcType="BIGINT" property="id" />
+    <result column="device_info_house_id" jdbcType="VARCHAR" property="houseId" />
+    <result column="device_info_device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="device_info_webservice_addr" jdbcType="VARCHAR" property="webserviceAddr" />
+    <result column="device_info_online" jdbcType="BIT" property="online" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    device_info.id as device_info_id, device_info.house_id as device_info_house_id, device_info.device_name as device_info_device_name, 
+    device_info.webservice_addr as device_info_webservice_addr, device_info.`online` as `device_info_online`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device_info device_info
+    where device_info.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from device_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.DeviceInfo" useGeneratedKeys="true">
+    insert into device_info (house_id, device_name, webservice_addr, 
+      `online`)
+    values (#{houseId,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{webserviceAddr,jdbcType=VARCHAR}, 
+      #{online,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.DeviceInfo" useGeneratedKeys="true">
+    insert into device_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="webserviceAddr != null">
+        webservice_addr,
+      </if>
+      <if test="online != null">
+        `online`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="webserviceAddr != null">
+        #{webserviceAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="online != null">
+        #{online,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.DeviceInfo">
+    update device_info
+    <set>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="webserviceAddr != null">
+        webservice_addr = #{webserviceAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="online != null">
+        `online` = #{online,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.DeviceInfo">
+    update device_info
+    set house_id = #{houseId,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      webservice_addr = #{webserviceAddr,jdbcType=VARCHAR},
+      `online` = #{online,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

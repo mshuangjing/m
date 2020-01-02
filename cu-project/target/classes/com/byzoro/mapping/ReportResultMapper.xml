@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.ReportResultMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.ReportResult">
+    <id column="report_result_id" jdbcType="BIGINT" property="id" />
+    <result column="report_result_data_type" jdbcType="INTEGER" property="dataType" />
+    <result column="report_result_result_code" jdbcType="INTEGER" property="resultCode" />
+    <result column="report_result_file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="report_result_timestamp" jdbcType="INTEGER" property="timestamp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    report_result.id as report_result_id, report_result.data_type as report_result_data_type, 
+    report_result.result_code as report_result_result_code, report_result.file_name as report_result_file_name, 
+    report_result.`timestamp` as `report_result_timestamp`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from report_result report_result
+    where report_result.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from report_result
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.ReportResult" useGeneratedKeys="true">
+    insert into report_result (data_type, result_code, file_name, 
+      `timestamp`)
+    values (#{dataType,jdbcType=INTEGER}, #{resultCode,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, 
+      #{timestamp,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.ReportResult" useGeneratedKeys="true">
+    insert into report_result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dataType != null">
+        data_type,
+      </if>
+      <if test="resultCode != null">
+        result_code,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="timestamp != null">
+        `timestamp`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dataType != null">
+        #{dataType,jdbcType=INTEGER},
+      </if>
+      <if test="resultCode != null">
+        #{resultCode,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.ReportResult">
+    update report_result
+    <set>
+      <if test="dataType != null">
+        data_type = #{dataType,jdbcType=INTEGER},
+      </if>
+      <if test="resultCode != null">
+        result_code = #{resultCode,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        `timestamp` = #{timestamp,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.ReportResult">
+    update report_result
+    set data_type = #{dataType,jdbcType=INTEGER},
+      result_code = #{resultCode,jdbcType=INTEGER},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      `timestamp` = #{timestamp,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

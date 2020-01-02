@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.AttributeCodelistInfoMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.AttributeCodelistInfo">
+    <id column="attribute_codelist_info_id" jdbcType="BIGINT" property="id" />
+    <result column="attribute_codelist_info_attribute_id" jdbcType="BIGINT" property="attributeId" />
+    <result column="attribute_codelist_info_code_id" jdbcType="BIGINT" property="codeId" />
+    <result column="attribute_codelist_info_mc" jdbcType="VARCHAR" property="mc" />
+    <result column="attribute_codelist_info_fl" jdbcType="BIGINT" property="fl" />
+    <result column="attribute_codelist_info_bz" jdbcType="VARCHAR" property="bz" />
+    <result column="attribute_codelist_info_sfyx" jdbcType="BIGINT" property="sfyx" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    attribute_codelist_info.id as attribute_codelist_info_id, attribute_codelist_info.attribute_id as attribute_codelist_info_attribute_id, 
+    attribute_codelist_info.code_id as attribute_codelist_info_code_id, attribute_codelist_info.mc as attribute_codelist_info_mc, 
+    attribute_codelist_info.fl as attribute_codelist_info_fl, attribute_codelist_info.bz as attribute_codelist_info_bz, 
+    attribute_codelist_info.sfyx as attribute_codelist_info_sfyx
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from attribute_codelist_info attribute_codelist_info
+    where attribute_codelist_info.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from attribute_codelist_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.AttributeCodelistInfo" useGeneratedKeys="true">
+    insert into attribute_codelist_info (attribute_id, code_id, mc, 
+      fl, bz, sfyx)
+    values (#{attributeId,jdbcType=BIGINT}, #{codeId,jdbcType=BIGINT}, #{mc,jdbcType=VARCHAR}, 
+      #{fl,jdbcType=BIGINT}, #{bz,jdbcType=VARCHAR}, #{sfyx,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.AttributeCodelistInfo" useGeneratedKeys="true">
+    insert into attribute_codelist_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="attributeId != null">
+        attribute_id,
+      </if>
+      <if test="codeId != null">
+        code_id,
+      </if>
+      <if test="mc != null">
+        mc,
+      </if>
+      <if test="fl != null">
+        fl,
+      </if>
+      <if test="bz != null">
+        bz,
+      </if>
+      <if test="sfyx != null">
+        sfyx,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="attributeId != null">
+        #{attributeId,jdbcType=BIGINT},
+      </if>
+      <if test="codeId != null">
+        #{codeId,jdbcType=BIGINT},
+      </if>
+      <if test="mc != null">
+        #{mc,jdbcType=VARCHAR},
+      </if>
+      <if test="fl != null">
+        #{fl,jdbcType=BIGINT},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="sfyx != null">
+        #{sfyx,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.AttributeCodelistInfo">
+    update attribute_codelist_info
+    <set>
+      <if test="attributeId != null">
+        attribute_id = #{attributeId,jdbcType=BIGINT},
+      </if>
+      <if test="codeId != null">
+        code_id = #{codeId,jdbcType=BIGINT},
+      </if>
+      <if test="mc != null">
+        mc = #{mc,jdbcType=VARCHAR},
+      </if>
+      <if test="fl != null">
+        fl = #{fl,jdbcType=BIGINT},
+      </if>
+      <if test="bz != null">
+        bz = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="sfyx != null">
+        sfyx = #{sfyx,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.AttributeCodelistInfo">
+    update attribute_codelist_info
+    set attribute_id = #{attributeId,jdbcType=BIGINT},
+      code_id = #{codeId,jdbcType=BIGINT},
+      mc = #{mc,jdbcType=VARCHAR},
+      fl = #{fl,jdbcType=BIGINT},
+      bz = #{bz,jdbcType=VARCHAR},
+      sfyx = #{sfyx,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.IsmsRuleMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.IsmsRule">
+    <id column="isms_rule_id" jdbcType="BIGINT" property="id" />
+    <result column="isms_rule_commandid" jdbcType="BIGINT" property="commandid" />
+    <result column="isms_rule_subtype" jdbcType="BIT" property="subtype" />
+    <result column="isms_rule_value_start" jdbcType="VARCHAR" property="valueStart" />
+    <result column="isms_rule_value_end" jdbcType="VARCHAR" property="valueEnd" />
+    <result column="isms_rule_keyword_range" jdbcType="VARCHAR" property="keywordRange" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    isms_rule.id as isms_rule_id, isms_rule.commandid as isms_rule_commandid, isms_rule.subtype as isms_rule_subtype, 
+    isms_rule.value_start as isms_rule_value_start, isms_rule.value_end as isms_rule_value_end, 
+    isms_rule.keyword_range as isms_rule_keyword_range
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from isms_rule isms_rule
+    where isms_rule.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from isms_rule
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.IsmsRule" useGeneratedKeys="true">
+    insert into isms_rule (commandid, subtype, value_start, 
+      value_end, keyword_range)
+    values (#{commandid,jdbcType=BIGINT}, #{subtype,jdbcType=BIT}, #{valueStart,jdbcType=VARCHAR}, 
+      #{valueEnd,jdbcType=VARCHAR}, #{keywordRange,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.IsmsRule" useGeneratedKeys="true">
+    insert into isms_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        commandid,
+      </if>
+      <if test="subtype != null">
+        subtype,
+      </if>
+      <if test="valueStart != null">
+        value_start,
+      </if>
+      <if test="valueEnd != null">
+        value_end,
+      </if>
+      <if test="keywordRange != null">
+        keyword_range,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="subtype != null">
+        #{subtype,jdbcType=BIT},
+      </if>
+      <if test="valueStart != null">
+        #{valueStart,jdbcType=VARCHAR},
+      </if>
+      <if test="valueEnd != null">
+        #{valueEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="keywordRange != null">
+        #{keywordRange,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.IsmsRule">
+    update isms_rule
+    <set>
+      <if test="commandid != null">
+        commandid = #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="subtype != null">
+        subtype = #{subtype,jdbcType=BIT},
+      </if>
+      <if test="valueStart != null">
+        value_start = #{valueStart,jdbcType=VARCHAR},
+      </if>
+      <if test="valueEnd != null">
+        value_end = #{valueEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="keywordRange != null">
+        keyword_range = #{keywordRange,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.IsmsRule">
+    update isms_rule
+    set commandid = #{commandid,jdbcType=BIGINT},
+      subtype = #{subtype,jdbcType=BIT},
+      value_start = #{valueStart,jdbcType=VARCHAR},
+      value_end = #{valueEnd,jdbcType=VARCHAR},
+      keyword_range = #{keywordRange,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

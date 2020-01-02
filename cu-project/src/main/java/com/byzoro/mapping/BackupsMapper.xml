@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.BackupsMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.Backups">
+    <id column="backups_id" jdbcType="BIGINT" property="id" />
+    <result column="backups_tables" jdbcType="CHAR" property="tables" />
+    <result column="backups_path_name" jdbcType="VARCHAR" property="pathName" />
+    <result column="backups_file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="backups_add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="backups_is_telnet" jdbcType="CHAR" property="isTelnet" />
+    <result column="backups_telnet_ip" jdbcType="VARCHAR" property="telnetIp" />
+    <result column="backups_telnet_user" jdbcType="VARCHAR" property="telnetUser" />
+    <result column="backups_telnet_pwd" jdbcType="VARCHAR" property="telnetPwd" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    backups.id as backups_id, backups.`tables` as `backups_tables`, backups.path_name as backups_path_name, 
+    backups.file_name as backups_file_name, backups.add_time as backups_add_time, backups.is_telnet as backups_is_telnet, 
+    backups.telnet_ip as backups_telnet_ip, backups.telnet_user as backups_telnet_user, 
+    backups.telnet_pwd as backups_telnet_pwd
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from backups backups
+    where backups.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from backups
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.Backups" useGeneratedKeys="true">
+    insert into backups (`tables`, path_name, file_name, 
+      add_time, is_telnet, telnet_ip, 
+      telnet_user, telnet_pwd)
+    values (#{tables,jdbcType=CHAR}, #{pathName,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{isTelnet,jdbcType=CHAR}, #{telnetIp,jdbcType=VARCHAR}, 
+      #{telnetUser,jdbcType=VARCHAR}, #{telnetPwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.Backups" useGeneratedKeys="true">
+    insert into backups
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tables != null">
+        `tables`,
+      </if>
+      <if test="pathName != null">
+        path_name,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="isTelnet != null">
+        is_telnet,
+      </if>
+      <if test="telnetIp != null">
+        telnet_ip,
+      </if>
+      <if test="telnetUser != null">
+        telnet_user,
+      </if>
+      <if test="telnetPwd != null">
+        telnet_pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tables != null">
+        #{tables,jdbcType=CHAR},
+      </if>
+      <if test="pathName != null">
+        #{pathName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isTelnet != null">
+        #{isTelnet,jdbcType=CHAR},
+      </if>
+      <if test="telnetIp != null">
+        #{telnetIp,jdbcType=VARCHAR},
+      </if>
+      <if test="telnetUser != null">
+        #{telnetUser,jdbcType=VARCHAR},
+      </if>
+      <if test="telnetPwd != null">
+        #{telnetPwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.Backups">
+    update backups
+    <set>
+      <if test="tables != null">
+        `tables` = #{tables,jdbcType=CHAR},
+      </if>
+      <if test="pathName != null">
+        path_name = #{pathName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isTelnet != null">
+        is_telnet = #{isTelnet,jdbcType=CHAR},
+      </if>
+      <if test="telnetIp != null">
+        telnet_ip = #{telnetIp,jdbcType=VARCHAR},
+      </if>
+      <if test="telnetUser != null">
+        telnet_user = #{telnetUser,jdbcType=VARCHAR},
+      </if>
+      <if test="telnetPwd != null">
+        telnet_pwd = #{telnetPwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.Backups">
+    update backups
+    set `tables` = #{tables,jdbcType=CHAR},
+      path_name = #{pathName,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      is_telnet = #{isTelnet,jdbcType=CHAR},
+      telnet_ip = #{telnetIp,jdbcType=VARCHAR},
+      telnet_user = #{telnetUser,jdbcType=VARCHAR},
+      telnet_pwd = #{telnetPwd,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

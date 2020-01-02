@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.PolicyIsmsMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.PolicyIsms">
+    <id column="policy_isms_id" jdbcType="BIGINT" property="id" />
+    <result column="policy_isms_commandid" jdbcType="BIGINT" property="commandid" />
+    <result column="policy_isms_type" jdbcType="BIT" property="type" />
+    <result column="policy_isms_reason" jdbcType="VARCHAR" property="reason" />
+    <result column="policy_isms_log_flag" jdbcType="BIT" property="logFlag" />
+    <result column="policy_isms_report_flag" jdbcType="BIT" property="reportFlag" />
+    <result column="policy_isms_effect_time" jdbcType="INTEGER" property="effectTime" />
+    <result column="policy_isms_expired_time" jdbcType="INTEGER" property="expiredTime" />
+    <result column="policy_isms_idc_id" jdbcType="VARCHAR" property="idcId" />
+    <result column="policy_isms_house_id" jdbcType="VARCHAR" property="houseId" />
+    <result column="policy_isms_owner" jdbcType="VARCHAR" property="owner" />
+    <result column="policy_isms_visible" jdbcType="BIT" property="visible" />
+    <result column="policy_isms_operationtype" jdbcType="BIT" property="operationtype" />
+    <result column="policy_isms_level" jdbcType="VARCHAR" property="level" />
+    <result column="policy_isms_timestamp" jdbcType="INTEGER" property="timestamp" />
+    <result column="policy_isms_source" jdbcType="BIT" property="source" />
+    <result column="policy_isms_status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    policy_isms.id as policy_isms_id, policy_isms.commandid as policy_isms_commandid, 
+    policy_isms.`type` as `policy_isms_type`, policy_isms.reason as policy_isms_reason, 
+    policy_isms.log_flag as policy_isms_log_flag, policy_isms.report_flag as policy_isms_report_flag, 
+    policy_isms.effect_time as policy_isms_effect_time, policy_isms.expired_time as policy_isms_expired_time, 
+    policy_isms.idc_id as policy_isms_idc_id, policy_isms.house_id as policy_isms_house_id, 
+    policy_isms.`owner` as `policy_isms_owner`, policy_isms.visible as policy_isms_visible, 
+    policy_isms.operationtype as policy_isms_operationtype, policy_isms.`level` as `policy_isms_level`, 
+    policy_isms.`timestamp` as `policy_isms_timestamp`, policy_isms.`source` as `policy_isms_source`, 
+    policy_isms.`status` as `policy_isms_status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from policy_isms policy_isms
+    where policy_isms.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from policy_isms
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyIsms" useGeneratedKeys="true">
+    insert into policy_isms (commandid, `type`, reason, 
+      log_flag, report_flag, effect_time, 
+      expired_time, idc_id, house_id, 
+      `owner`, visible, operationtype, 
+      `level`, `timestamp`, `source`, 
+      `status`)
+    values (#{commandid,jdbcType=BIGINT}, #{type,jdbcType=BIT}, #{reason,jdbcType=VARCHAR}, 
+      #{logFlag,jdbcType=BIT}, #{reportFlag,jdbcType=BIT}, #{effectTime,jdbcType=INTEGER}, 
+      #{expiredTime,jdbcType=INTEGER}, #{idcId,jdbcType=VARCHAR}, #{houseId,jdbcType=VARCHAR}, 
+      #{owner,jdbcType=VARCHAR}, #{visible,jdbcType=BIT}, #{operationtype,jdbcType=BIT}, 
+      #{level,jdbcType=VARCHAR}, #{timestamp,jdbcType=INTEGER}, #{source,jdbcType=BIT}, 
+      #{status,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyIsms" useGeneratedKeys="true">
+    insert into policy_isms
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        commandid,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="logFlag != null">
+        log_flag,
+      </if>
+      <if test="reportFlag != null">
+        report_flag,
+      </if>
+      <if test="effectTime != null">
+        effect_time,
+      </if>
+      <if test="expiredTime != null">
+        expired_time,
+      </if>
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="owner != null">
+        `owner`,
+      </if>
+      <if test="visible != null">
+        visible,
+      </if>
+      <if test="operationtype != null">
+        operationtype,
+      </if>
+      <if test="level != null">
+        `level`,
+      </if>
+      <if test="timestamp != null">
+        `timestamp`,
+      </if>
+      <if test="source != null">
+        `source`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="logFlag != null">
+        #{logFlag,jdbcType=BIT},
+      </if>
+      <if test="reportFlag != null">
+        #{reportFlag,jdbcType=BIT},
+      </if>
+      <if test="effectTime != null">
+        #{effectTime,jdbcType=INTEGER},
+      </if>
+      <if test="expiredTime != null">
+        #{expiredTime,jdbcType=INTEGER},
+      </if>
+      <if test="idcId != null">
+        #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="visible != null">
+        #{visible,jdbcType=BIT},
+      </if>
+      <if test="operationtype != null">
+        #{operationtype,jdbcType=BIT},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.PolicyIsms">
+    update policy_isms
+    <set>
+      <if test="commandid != null">
+        commandid = #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=BIT},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="logFlag != null">
+        log_flag = #{logFlag,jdbcType=BIT},
+      </if>
+      <if test="reportFlag != null">
+        report_flag = #{reportFlag,jdbcType=BIT},
+      </if>
+      <if test="effectTime != null">
+        effect_time = #{effectTime,jdbcType=INTEGER},
+      </if>
+      <if test="expiredTime != null">
+        expired_time = #{expiredTime,jdbcType=INTEGER},
+      </if>
+      <if test="idcId != null">
+        idc_id = #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        `owner` = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="visible != null">
+        visible = #{visible,jdbcType=BIT},
+      </if>
+      <if test="operationtype != null">
+        operationtype = #{operationtype,jdbcType=BIT},
+      </if>
+      <if test="level != null">
+        `level` = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        `timestamp` = #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        `source` = #{source,jdbcType=BIT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.PolicyIsms">
+    update policy_isms
+    set commandid = #{commandid,jdbcType=BIGINT},
+      `type` = #{type,jdbcType=BIT},
+      reason = #{reason,jdbcType=VARCHAR},
+      log_flag = #{logFlag,jdbcType=BIT},
+      report_flag = #{reportFlag,jdbcType=BIT},
+      effect_time = #{effectTime,jdbcType=INTEGER},
+      expired_time = #{expiredTime,jdbcType=INTEGER},
+      idc_id = #{idcId,jdbcType=VARCHAR},
+      house_id = #{houseId,jdbcType=VARCHAR},
+      `owner` = #{owner,jdbcType=VARCHAR},
+      visible = #{visible,jdbcType=BIT},
+      operationtype = #{operationtype,jdbcType=BIT},
+      `level` = #{level,jdbcType=VARCHAR},
+      `timestamp` = #{timestamp,jdbcType=INTEGER},
+      `source` = #{source,jdbcType=BIT},
+      `status` = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

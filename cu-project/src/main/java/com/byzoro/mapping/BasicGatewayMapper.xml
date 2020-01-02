@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.BasicGatewayMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.BasicGateway">
+    <id column="basic_gateway_id" jdbcType="BIGINT" property="id" />
+    <result column="basic_gateway_house_id" jdbcType="VARCHAR" property="houseId" />
+    <result column="basic_gateway_bandwidth" jdbcType="BIGINT" property="bandwidth" />
+    <result column="basic_gateway_linktype" jdbcType="BIT" property="linktype" />
+    <result column="basic_gateway_accessunit" jdbcType="VARCHAR" property="accessunit" />
+    <result column="basic_gateway_gatewayip" jdbcType="VARCHAR" property="gatewayip" />
+    <result column="basic_gateway_status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    basic_gateway.id as basic_gateway_id, basic_gateway.house_id as basic_gateway_house_id, 
+    basic_gateway.bandwidth as basic_gateway_bandwidth, basic_gateway.`linktype` as `basic_gateway_linktype`, 
+    basic_gateway.accessunit as basic_gateway_accessunit, basic_gateway.gatewayip as basic_gateway_gatewayip, 
+    basic_gateway.`status` as `basic_gateway_status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basic_gateway basic_gateway
+    where basic_gateway.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from basic_gateway
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicGateway" useGeneratedKeys="true">
+    insert into basic_gateway (house_id, bandwidth, `linktype`, 
+      accessunit, gatewayip, `status`
+      )
+    values (#{houseId,jdbcType=VARCHAR}, #{bandwidth,jdbcType=BIGINT}, #{linktype,jdbcType=BIT}, 
+      #{accessunit,jdbcType=VARCHAR}, #{gatewayip,jdbcType=VARCHAR}, #{status,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicGateway" useGeneratedKeys="true">
+    insert into basic_gateway
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="bandwidth != null">
+        bandwidth,
+      </if>
+      <if test="linktype != null">
+        `linktype`,
+      </if>
+      <if test="accessunit != null">
+        accessunit,
+      </if>
+      <if test="gatewayip != null">
+        gatewayip,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="bandwidth != null">
+        #{bandwidth,jdbcType=BIGINT},
+      </if>
+      <if test="linktype != null">
+        #{linktype,jdbcType=BIT},
+      </if>
+      <if test="accessunit != null">
+        #{accessunit,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayip != null">
+        #{gatewayip,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.BasicGateway">
+    update basic_gateway
+    <set>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="bandwidth != null">
+        bandwidth = #{bandwidth,jdbcType=BIGINT},
+      </if>
+      <if test="linktype != null">
+        `linktype` = #{linktype,jdbcType=BIT},
+      </if>
+      <if test="accessunit != null">
+        accessunit = #{accessunit,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayip != null">
+        gatewayip = #{gatewayip,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.BasicGateway">
+    update basic_gateway
+    set house_id = #{houseId,jdbcType=VARCHAR},
+      bandwidth = #{bandwidth,jdbcType=BIGINT},
+      `linktype` = #{linktype,jdbcType=BIT},
+      accessunit = #{accessunit,jdbcType=VARCHAR},
+      gatewayip = #{gatewayip,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

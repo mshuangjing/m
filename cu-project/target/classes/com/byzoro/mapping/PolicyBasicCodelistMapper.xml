@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.PolicyBasicCodelistMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.PolicyBasicCodelist">
+    <id column="policy_basic_codelist_id" jdbcType="BIGINT" property="id" />
+    <result column="policy_basic_codelist_commandId" jdbcType="BIGINT" property="commandid" />
+    <result column="policy_basic_codelist_jrfs" jdbcType="VARCHAR" property="jrfs" />
+    <result column="policy_basic_codelist_dwsx" jdbcType="VARCHAR" property="dwsx" />
+    <result column="policy_basic_codelist_zjlx" jdbcType="VARCHAR" property="zjlx" />
+    <result column="policy_basic_codelist_jfxz" jdbcType="VARCHAR" property="jfxz" />
+    <result column="policy_basic_codelist_dllx" jdbcType="VARCHAR" property="dllx" />
+    <result column="policy_basic_codelist_fwnr" jdbcType="VARCHAR" property="fwnr" />
+    <result column="policy_basic_codelist_gzlx" jdbcType="VARCHAR" property="gzlx" />
+    <result column="policy_basic_codelist_wfwgqk" jdbcType="VARCHAR" property="wfwgqk" />
+    <result column="policy_basic_codelist_timestamp" jdbcType="INTEGER" property="timestamp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    policy_basic_codelist.id as policy_basic_codelist_id, policy_basic_codelist.commandId as policy_basic_codelist_commandId, 
+    policy_basic_codelist.jrfs as policy_basic_codelist_jrfs, policy_basic_codelist.dwsx as policy_basic_codelist_dwsx, 
+    policy_basic_codelist.zjlx as policy_basic_codelist_zjlx, policy_basic_codelist.jfxz as policy_basic_codelist_jfxz, 
+    policy_basic_codelist.dllx as policy_basic_codelist_dllx, policy_basic_codelist.fwnr as policy_basic_codelist_fwnr, 
+    policy_basic_codelist.gzlx as policy_basic_codelist_gzlx, policy_basic_codelist.wfwgqk as policy_basic_codelist_wfwgqk, 
+    policy_basic_codelist.`timestamp` as `policy_basic_codelist_timestamp`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from policy_basic_codelist policy_basic_codelist
+    where policy_basic_codelist.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from policy_basic_codelist
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyBasicCodelist" useGeneratedKeys="true">
+    insert into policy_basic_codelist (commandId, jrfs, dwsx, 
+      zjlx, jfxz, dllx, fwnr, 
+      gzlx, wfwgqk, `timestamp`
+      )
+    values (#{commandid,jdbcType=BIGINT}, #{jrfs,jdbcType=VARCHAR}, #{dwsx,jdbcType=VARCHAR}, 
+      #{zjlx,jdbcType=VARCHAR}, #{jfxz,jdbcType=VARCHAR}, #{dllx,jdbcType=VARCHAR}, #{fwnr,jdbcType=VARCHAR}, 
+      #{gzlx,jdbcType=VARCHAR}, #{wfwgqk,jdbcType=VARCHAR}, #{timestamp,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyBasicCodelist" useGeneratedKeys="true">
+    insert into policy_basic_codelist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        commandId,
+      </if>
+      <if test="jrfs != null">
+        jrfs,
+      </if>
+      <if test="dwsx != null">
+        dwsx,
+      </if>
+      <if test="zjlx != null">
+        zjlx,
+      </if>
+      <if test="jfxz != null">
+        jfxz,
+      </if>
+      <if test="dllx != null">
+        dllx,
+      </if>
+      <if test="fwnr != null">
+        fwnr,
+      </if>
+      <if test="gzlx != null">
+        gzlx,
+      </if>
+      <if test="wfwgqk != null">
+        wfwgqk,
+      </if>
+      <if test="timestamp != null">
+        `timestamp`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="jrfs != null">
+        #{jrfs,jdbcType=VARCHAR},
+      </if>
+      <if test="dwsx != null">
+        #{dwsx,jdbcType=VARCHAR},
+      </if>
+      <if test="zjlx != null">
+        #{zjlx,jdbcType=VARCHAR},
+      </if>
+      <if test="jfxz != null">
+        #{jfxz,jdbcType=VARCHAR},
+      </if>
+      <if test="dllx != null">
+        #{dllx,jdbcType=VARCHAR},
+      </if>
+      <if test="fwnr != null">
+        #{fwnr,jdbcType=VARCHAR},
+      </if>
+      <if test="gzlx != null">
+        #{gzlx,jdbcType=VARCHAR},
+      </if>
+      <if test="wfwgqk != null">
+        #{wfwgqk,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.PolicyBasicCodelist">
+    update policy_basic_codelist
+    <set>
+      <if test="commandid != null">
+        commandId = #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="jrfs != null">
+        jrfs = #{jrfs,jdbcType=VARCHAR},
+      </if>
+      <if test="dwsx != null">
+        dwsx = #{dwsx,jdbcType=VARCHAR},
+      </if>
+      <if test="zjlx != null">
+        zjlx = #{zjlx,jdbcType=VARCHAR},
+      </if>
+      <if test="jfxz != null">
+        jfxz = #{jfxz,jdbcType=VARCHAR},
+      </if>
+      <if test="dllx != null">
+        dllx = #{dllx,jdbcType=VARCHAR},
+      </if>
+      <if test="fwnr != null">
+        fwnr = #{fwnr,jdbcType=VARCHAR},
+      </if>
+      <if test="gzlx != null">
+        gzlx = #{gzlx,jdbcType=VARCHAR},
+      </if>
+      <if test="wfwgqk != null">
+        wfwgqk = #{wfwgqk,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        `timestamp` = #{timestamp,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.PolicyBasicCodelist">
+    update policy_basic_codelist
+    set commandId = #{commandid,jdbcType=BIGINT},
+      jrfs = #{jrfs,jdbcType=VARCHAR},
+      dwsx = #{dwsx,jdbcType=VARCHAR},
+      zjlx = #{zjlx,jdbcType=VARCHAR},
+      jfxz = #{jfxz,jdbcType=VARCHAR},
+      dllx = #{dllx,jdbcType=VARCHAR},
+      fwnr = #{fwnr,jdbcType=VARCHAR},
+      gzlx = #{gzlx,jdbcType=VARCHAR},
+      wfwgqk = #{wfwgqk,jdbcType=VARCHAR},
+      `timestamp` = #{timestamp,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

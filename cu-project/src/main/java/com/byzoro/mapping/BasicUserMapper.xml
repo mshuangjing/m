@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.BasicUserMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.BasicUser">
+    <id column="basic_user_user_id" jdbcType="BIGINT" property="userId" />
+    <result column="basic_user_idc_id" jdbcType="VARCHAR" property="idcId" />
+    <result column="basic_user_nature" jdbcType="BIT" property="nature" />
+    <result column="basic_user_unitname" jdbcType="VARCHAR" property="unitname" />
+    <result column="basic_user_unitnature" jdbcType="INTEGER" property="unitnature" />
+    <result column="basic_user_id_type" jdbcType="INTEGER" property="idType" />
+    <result column="basic_user_idnumber" jdbcType="VARCHAR" property="idnumber" />
+    <result column="basic_user_officer_name" jdbcType="VARCHAR" property="officerName" />
+    <result column="basic_user_officer_idtype" jdbcType="INTEGER" property="officerIdtype" />
+    <result column="basic_user_officer_id" jdbcType="VARCHAR" property="officerId" />
+    <result column="basic_user_officer_tel" jdbcType="VARCHAR" property="officerTel" />
+    <result column="basic_user_officer_mobile" jdbcType="VARCHAR" property="officerMobile" />
+    <result column="basic_user_officer_email" jdbcType="VARCHAR" property="officerEmail" />
+    <result column="basic_user_addr" jdbcType="VARCHAR" property="addr" />
+    <result column="basic_user_zip_code" jdbcType="VARCHAR" property="zipCode" />
+    <result column="basic_user_service_reg_time" jdbcType="INTEGER" property="serviceRegTime" />
+    <result column="basic_user_register_time" jdbcType="INTEGER" property="registerTime" />
+    <result column="basic_user_status" jdbcType="BIT" property="status" />
+    <result column="basic_user_is_user" jdbcType="TINYINT" property="isUser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    basic_user.user_id as basic_user_user_id, basic_user.idc_id as basic_user_idc_id, 
+    basic_user.nature as basic_user_nature, basic_user.unitname as basic_user_unitname, 
+    basic_user.unitnature as basic_user_unitnature, basic_user.id_type as basic_user_id_type, 
+    basic_user.idnumber as basic_user_idnumber, basic_user.officer_name as basic_user_officer_name, 
+    basic_user.officer_idtype as basic_user_officer_idtype, basic_user.officer_id as basic_user_officer_id, 
+    basic_user.officer_tel as basic_user_officer_tel, basic_user.officer_mobile as basic_user_officer_mobile, 
+    basic_user.officer_email as basic_user_officer_email, basic_user.addr as basic_user_addr, 
+    basic_user.zip_code as basic_user_zip_code, basic_user.service_reg_time as basic_user_service_reg_time, 
+    basic_user.register_time as basic_user_register_time, basic_user.`status` as `basic_user_status`, 
+    basic_user.is_user as basic_user_is_user
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basic_user basic_user
+    where basic_user.user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from basic_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.byzoro.entity.BasicUser">
+    insert into basic_user (user_id, idc_id, nature, 
+      unitname, unitnature, id_type, 
+      idnumber, officer_name, officer_idtype, 
+      officer_id, officer_tel, officer_mobile, 
+      officer_email, addr, zip_code, 
+      service_reg_time, register_time, `status`, 
+      is_user)
+    values (#{userId,jdbcType=BIGINT}, #{idcId,jdbcType=VARCHAR}, #{nature,jdbcType=BIT}, 
+      #{unitname,jdbcType=VARCHAR}, #{unitnature,jdbcType=INTEGER}, #{idType,jdbcType=INTEGER}, 
+      #{idnumber,jdbcType=VARCHAR}, #{officerName,jdbcType=VARCHAR}, #{officerIdtype,jdbcType=INTEGER}, 
+      #{officerId,jdbcType=VARCHAR}, #{officerTel,jdbcType=VARCHAR}, #{officerMobile,jdbcType=VARCHAR}, 
+      #{officerEmail,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR}, 
+      #{serviceRegTime,jdbcType=INTEGER}, #{registerTime,jdbcType=INTEGER}, #{status,jdbcType=BIT}, 
+      #{isUser,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.byzoro.entity.BasicUser">
+    insert into basic_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="nature != null">
+        nature,
+      </if>
+      <if test="unitname != null">
+        unitname,
+      </if>
+      <if test="unitnature != null">
+        unitnature,
+      </if>
+      <if test="idType != null">
+        id_type,
+      </if>
+      <if test="idnumber != null">
+        idnumber,
+      </if>
+      <if test="officerName != null">
+        officer_name,
+      </if>
+      <if test="officerIdtype != null">
+        officer_idtype,
+      </if>
+      <if test="officerId != null">
+        officer_id,
+      </if>
+      <if test="officerTel != null">
+        officer_tel,
+      </if>
+      <if test="officerMobile != null">
+        officer_mobile,
+      </if>
+      <if test="officerEmail != null">
+        officer_email,
+      </if>
+      <if test="addr != null">
+        addr,
+      </if>
+      <if test="zipCode != null">
+        zip_code,
+      </if>
+      <if test="serviceRegTime != null">
+        service_reg_time,
+      </if>
+      <if test="registerTime != null">
+        register_time,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="isUser != null">
+        is_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="idcId != null">
+        #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null">
+        #{nature,jdbcType=BIT},
+      </if>
+      <if test="unitname != null">
+        #{unitname,jdbcType=VARCHAR},
+      </if>
+      <if test="unitnature != null">
+        #{unitnature,jdbcType=INTEGER},
+      </if>
+      <if test="idType != null">
+        #{idType,jdbcType=INTEGER},
+      </if>
+      <if test="idnumber != null">
+        #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="officerName != null">
+        #{officerName,jdbcType=VARCHAR},
+      </if>
+      <if test="officerIdtype != null">
+        #{officerIdtype,jdbcType=INTEGER},
+      </if>
+      <if test="officerId != null">
+        #{officerId,jdbcType=VARCHAR},
+      </if>
+      <if test="officerTel != null">
+        #{officerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="officerMobile != null">
+        #{officerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="officerEmail != null">
+        #{officerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null">
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceRegTime != null">
+        #{serviceRegTime,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null">
+        #{registerTime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="isUser != null">
+        #{isUser,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.BasicUser">
+    update basic_user
+    <set>
+      <if test="idcId != null">
+        idc_id = #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="nature != null">
+        nature = #{nature,jdbcType=BIT},
+      </if>
+      <if test="unitname != null">
+        unitname = #{unitname,jdbcType=VARCHAR},
+      </if>
+      <if test="unitnature != null">
+        unitnature = #{unitnature,jdbcType=INTEGER},
+      </if>
+      <if test="idType != null">
+        id_type = #{idType,jdbcType=INTEGER},
+      </if>
+      <if test="idnumber != null">
+        idnumber = #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="officerName != null">
+        officer_name = #{officerName,jdbcType=VARCHAR},
+      </if>
+      <if test="officerIdtype != null">
+        officer_idtype = #{officerIdtype,jdbcType=INTEGER},
+      </if>
+      <if test="officerId != null">
+        officer_id = #{officerId,jdbcType=VARCHAR},
+      </if>
+      <if test="officerTel != null">
+        officer_tel = #{officerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="officerMobile != null">
+        officer_mobile = #{officerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="officerEmail != null">
+        officer_email = #{officerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null">
+        zip_code = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceRegTime != null">
+        service_reg_time = #{serviceRegTime,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null">
+        register_time = #{registerTime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+      <if test="isUser != null">
+        is_user = #{isUser,jdbcType=TINYINT},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.BasicUser">
+    update basic_user
+    set idc_id = #{idcId,jdbcType=VARCHAR},
+      nature = #{nature,jdbcType=BIT},
+      unitname = #{unitname,jdbcType=VARCHAR},
+      unitnature = #{unitnature,jdbcType=INTEGER},
+      id_type = #{idType,jdbcType=INTEGER},
+      idnumber = #{idnumber,jdbcType=VARCHAR},
+      officer_name = #{officerName,jdbcType=VARCHAR},
+      officer_idtype = #{officerIdtype,jdbcType=INTEGER},
+      officer_id = #{officerId,jdbcType=VARCHAR},
+      officer_tel = #{officerTel,jdbcType=VARCHAR},
+      officer_mobile = #{officerMobile,jdbcType=VARCHAR},
+      officer_email = #{officerEmail,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      zip_code = #{zipCode,jdbcType=VARCHAR},
+      service_reg_time = #{serviceRegTime,jdbcType=INTEGER},
+      register_time = #{registerTime,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=BIT},
+      is_user = #{isUser,jdbcType=TINYINT}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

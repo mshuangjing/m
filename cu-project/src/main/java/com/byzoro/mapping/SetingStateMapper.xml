@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.SetingStateMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.SetingState">
+    <id column="seting_state_id" jdbcType="BIGINT" property="id" />
+    <result column="seting_state_smms_state" jdbcType="INTEGER" property="smmsState" />
+    <result column="seting_state_ftp_state" jdbcType="INTEGER" property="ftpState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    seting_state.id as seting_state_id, seting_state.smms_state as seting_state_smms_state, 
+    seting_state.ftp_state as seting_state_ftp_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from seting_state seting_state
+    where seting_state.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from seting_state
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.SetingState" useGeneratedKeys="true">
+    insert into seting_state (smms_state, ftp_state)
+    values (#{smmsState,jdbcType=INTEGER}, #{ftpState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.SetingState" useGeneratedKeys="true">
+    insert into seting_state
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="smmsState != null">
+        smms_state,
+      </if>
+      <if test="ftpState != null">
+        ftp_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="smmsState != null">
+        #{smmsState,jdbcType=INTEGER},
+      </if>
+      <if test="ftpState != null">
+        #{ftpState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.SetingState">
+    update seting_state
+    <set>
+      <if test="smmsState != null">
+        smms_state = #{smmsState,jdbcType=INTEGER},
+      </if>
+      <if test="ftpState != null">
+        ftp_state = #{ftpState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.SetingState">
+    update seting_state
+    set smms_state = #{smmsState,jdbcType=INTEGER},
+      ftp_state = #{ftpState,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.SetingNtpMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.SetingNtp">
+    <id column="seting_ntp_id" jdbcType="INTEGER" property="id" />
+    <result column="seting_ntp_ntp_server_ip" jdbcType="CHAR" property="ntpServerIp" />
+    <result column="seting_ntp_port" jdbcType="INTEGER" property="port" />
+    <result column="seting_ntp_syn_freq" jdbcType="INTEGER" property="synFreq" />
+    <result column="seting_ntp_state" jdbcType="BIT" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    seting_ntp.id as seting_ntp_id, seting_ntp.ntp_server_ip as seting_ntp_ntp_server_ip, 
+    seting_ntp.port as seting_ntp_port, seting_ntp.syn_freq as seting_ntp_syn_freq, seting_ntp.`state` as `seting_ntp_state`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from seting_ntp seting_ntp
+    where seting_ntp.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from seting_ntp
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.SetingNtp" useGeneratedKeys="true">
+    insert into seting_ntp (ntp_server_ip, port, syn_freq, 
+      `state`)
+    values (#{ntpServerIp,jdbcType=CHAR}, #{port,jdbcType=INTEGER}, #{synFreq,jdbcType=INTEGER}, 
+      #{state,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.SetingNtp" useGeneratedKeys="true">
+    insert into seting_ntp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ntpServerIp != null">
+        ntp_server_ip,
+      </if>
+      <if test="port != null">
+        port,
+      </if>
+      <if test="synFreq != null">
+        syn_freq,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ntpServerIp != null">
+        #{ntpServerIp,jdbcType=CHAR},
+      </if>
+      <if test="port != null">
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="synFreq != null">
+        #{synFreq,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.SetingNtp">
+    update seting_ntp
+    <set>
+      <if test="ntpServerIp != null">
+        ntp_server_ip = #{ntpServerIp,jdbcType=CHAR},
+      </if>
+      <if test="port != null">
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="synFreq != null">
+        syn_freq = #{synFreq,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.SetingNtp">
+    update seting_ntp
+    set ntp_server_ip = #{ntpServerIp,jdbcType=CHAR},
+      port = #{port,jdbcType=INTEGER},
+      syn_freq = #{synFreq,jdbcType=INTEGER},
+      `state` = #{state,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

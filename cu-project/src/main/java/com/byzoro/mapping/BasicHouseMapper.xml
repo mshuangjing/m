@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.BasicHouseMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.BasicHouse">
+    <id column="basic_house_id" jdbcType="BIGINT" property="id" />
+    <result column="basic_house_house_id" jdbcType="VARCHAR" property="houseId" />
+    <result column="basic_house_house_name" jdbcType="VARCHAR" property="houseName" />
+    <result column="basic_house_idc_id" jdbcType="VARCHAR" property="idcId" />
+    <result column="basic_house_house_type" jdbcType="INTEGER" property="houseType" />
+    <result column="basic_house_province" jdbcType="INTEGER" property="province" />
+    <result column="basic_house_city" jdbcType="INTEGER" property="city" />
+    <result column="basic_house_county" jdbcType="INTEGER" property="county" />
+    <result column="basic_house_house_addr" jdbcType="VARCHAR" property="houseAddr" />
+    <result column="basic_house_house_zip" jdbcType="VARCHAR" property="houseZip" />
+    <result column="basic_house_house_officer_name" jdbcType="VARCHAR" property="houseOfficerName" />
+    <result column="basic_house_house_officer_idtype" jdbcType="INTEGER" property="houseOfficerIdtype" />
+    <result column="basic_house_house_officer_id" jdbcType="VARCHAR" property="houseOfficerId" />
+    <result column="basic_house_house_officer_tel" jdbcType="VARCHAR" property="houseOfficerTel" />
+    <result column="basic_house_house_officer_mobile" jdbcType="VARCHAR" property="houseOfficerMobile" />
+    <result column="basic_house_house_officer_email" jdbcType="VARCHAR" property="houseOfficerEmail" />
+    <result column="basic_house_status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    basic_house.id as basic_house_id, basic_house.house_id as basic_house_house_id, basic_house.house_name as basic_house_house_name, 
+    basic_house.idc_id as basic_house_idc_id, basic_house.house_type as basic_house_house_type, 
+    basic_house.province as basic_house_province, basic_house.city as basic_house_city, 
+    basic_house.county as basic_house_county, basic_house.house_addr as basic_house_house_addr, 
+    basic_house.house_zip as basic_house_house_zip, basic_house.house_officer_name as basic_house_house_officer_name, 
+    basic_house.house_officer_idtype as basic_house_house_officer_idtype, basic_house.house_officer_id as basic_house_house_officer_id, 
+    basic_house.house_officer_tel as basic_house_house_officer_tel, basic_house.house_officer_mobile as basic_house_house_officer_mobile, 
+    basic_house.house_officer_email as basic_house_house_officer_email, basic_house.`status` as `basic_house_status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basic_house basic_house
+    where basic_house.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from basic_house
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicHouse" useGeneratedKeys="true">
+    insert into basic_house (house_id, house_name, idc_id, 
+      house_type, province, city, 
+      county, house_addr, house_zip, 
+      house_officer_name, house_officer_idtype, house_officer_id, 
+      house_officer_tel, house_officer_mobile, house_officer_email, 
+      `status`)
+    values (#{houseId,jdbcType=VARCHAR}, #{houseName,jdbcType=VARCHAR}, #{idcId,jdbcType=VARCHAR}, 
+      #{houseType,jdbcType=INTEGER}, #{province,jdbcType=INTEGER}, #{city,jdbcType=INTEGER}, 
+      #{county,jdbcType=INTEGER}, #{houseAddr,jdbcType=VARCHAR}, #{houseZip,jdbcType=VARCHAR}, 
+      #{houseOfficerName,jdbcType=VARCHAR}, #{houseOfficerIdtype,jdbcType=INTEGER}, #{houseOfficerId,jdbcType=VARCHAR}, 
+      #{houseOfficerTel,jdbcType=VARCHAR}, #{houseOfficerMobile,jdbcType=VARCHAR}, #{houseOfficerEmail,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicHouse" useGeneratedKeys="true">
+    insert into basic_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="houseName != null">
+        house_name,
+      </if>
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="houseType != null">
+        house_type,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="county != null">
+        county,
+      </if>
+      <if test="houseAddr != null">
+        house_addr,
+      </if>
+      <if test="houseZip != null">
+        house_zip,
+      </if>
+      <if test="houseOfficerName != null">
+        house_officer_name,
+      </if>
+      <if test="houseOfficerIdtype != null">
+        house_officer_idtype,
+      </if>
+      <if test="houseOfficerId != null">
+        house_officer_id,
+      </if>
+      <if test="houseOfficerTel != null">
+        house_officer_tel,
+      </if>
+      <if test="houseOfficerMobile != null">
+        house_officer_mobile,
+      </if>
+      <if test="houseOfficerEmail != null">
+        house_officer_email,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcId != null">
+        #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null">
+        #{houseType,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="county != null">
+        #{county,jdbcType=INTEGER},
+      </if>
+      <if test="houseAddr != null">
+        #{houseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="houseZip != null">
+        #{houseZip,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOfficerName != null">
+        #{houseOfficerName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOfficerIdtype != null">
+        #{houseOfficerIdtype,jdbcType=INTEGER},
+      </if>
+      <if test="houseOfficerId != null">
+        #{houseOfficerId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOfficerTel != null">
+        #{houseOfficerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOfficerMobile != null">
+        #{houseOfficerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOfficerEmail != null">
+        #{houseOfficerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.BasicHouse">
+    update basic_house
+    <set>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseName != null">
+        house_name = #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcId != null">
+        idc_id = #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null">
+        house_type = #{houseType,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="county != null">
+        county = #{county,jdbcType=INTEGER},
+      </if>
+      <if test="houseAddr != null">
+        house_addr = #{houseAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="houseZip != null">
+        house_zip = #{houseZip,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOfficerName != null">
+        house_officer_name = #{houseOfficerName,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOfficerIdtype != null">
+        house_officer_idtype = #{houseOfficerIdtype,jdbcType=INTEGER},
+      </if>
+      <if test="houseOfficerId != null">
+        house_officer_id = #{houseOfficerId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOfficerTel != null">
+        house_officer_tel = #{houseOfficerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOfficerMobile != null">
+        house_officer_mobile = #{houseOfficerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOfficerEmail != null">
+        house_officer_email = #{houseOfficerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.BasicHouse">
+    update basic_house
+    set house_id = #{houseId,jdbcType=VARCHAR},
+      house_name = #{houseName,jdbcType=VARCHAR},
+      idc_id = #{idcId,jdbcType=VARCHAR},
+      house_type = #{houseType,jdbcType=INTEGER},
+      province = #{province,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      county = #{county,jdbcType=INTEGER},
+      house_addr = #{houseAddr,jdbcType=VARCHAR},
+      house_zip = #{houseZip,jdbcType=VARCHAR},
+      house_officer_name = #{houseOfficerName,jdbcType=VARCHAR},
+      house_officer_idtype = #{houseOfficerIdtype,jdbcType=INTEGER},
+      house_officer_id = #{houseOfficerId,jdbcType=VARCHAR},
+      house_officer_tel = #{houseOfficerTel,jdbcType=VARCHAR},
+      house_officer_mobile = #{houseOfficerMobile,jdbcType=VARCHAR},
+      house_officer_email = #{houseOfficerEmail,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

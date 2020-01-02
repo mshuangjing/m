@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.BasicIdcMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.BasicIdc">
+    <id column="basic_idc_id" jdbcType="BIGINT" property="id" />
+    <result column="basic_idc_idc_id" jdbcType="VARCHAR" property="idcId" />
+    <result column="basic_idc_idc_name" jdbcType="VARCHAR" property="idcName" />
+    <result column="basic_idc_idc_addr" jdbcType="VARCHAR" property="idcAddr" />
+    <result column="basic_idc_idc_zip" jdbcType="VARCHAR" property="idcZip" />
+    <result column="basic_idc_idc_corp" jdbcType="VARCHAR" property="idcCorp" />
+    <result column="basic_idc_idc_officer_name" jdbcType="VARCHAR" property="idcOfficerName" />
+    <result column="basic_idc_idc_officer_idtype" jdbcType="INTEGER" property="idcOfficerIdtype" />
+    <result column="basic_idc_idc_officer_id" jdbcType="VARCHAR" property="idcOfficerId" />
+    <result column="basic_idc_idc_officer_tel" jdbcType="VARCHAR" property="idcOfficerTel" />
+    <result column="basic_idc_idc_officer_mobile" jdbcType="VARCHAR" property="idcOfficerMobile" />
+    <result column="basic_idc_idc_officer_email" jdbcType="VARCHAR" property="idcOfficerEmail" />
+    <result column="basic_idc_idc_emergency_name" jdbcType="VARCHAR" property="idcEmergencyName" />
+    <result column="basic_idc_idc_emergency_idtype" jdbcType="INTEGER" property="idcEmergencyIdtype" />
+    <result column="basic_idc_idc_emergency_id" jdbcType="VARCHAR" property="idcEmergencyId" />
+    <result column="basic_idc_idc_emergency_tel" jdbcType="VARCHAR" property="idcEmergencyTel" />
+    <result column="basic_idc_idc_emergency_mobile" jdbcType="VARCHAR" property="idcEmergencyMobile" />
+    <result column="basic_idc_idc_emergency_email" jdbcType="VARCHAR" property="idcEmergencyEmail" />
+    <result column="basic_idc_idc_status" jdbcType="BIT" property="idcStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    basic_idc.id as basic_idc_id, basic_idc.idc_id as basic_idc_idc_id, basic_idc.idc_name as basic_idc_idc_name, 
+    basic_idc.idc_addr as basic_idc_idc_addr, basic_idc.idc_zip as basic_idc_idc_zip, 
+    basic_idc.idc_corp as basic_idc_idc_corp, basic_idc.idc_officer_name as basic_idc_idc_officer_name, 
+    basic_idc.idc_officer_idtype as basic_idc_idc_officer_idtype, basic_idc.idc_officer_id as basic_idc_idc_officer_id, 
+    basic_idc.idc_officer_tel as basic_idc_idc_officer_tel, basic_idc.idc_officer_mobile as basic_idc_idc_officer_mobile, 
+    basic_idc.idc_officer_email as basic_idc_idc_officer_email, basic_idc.idc_emergency_name as basic_idc_idc_emergency_name, 
+    basic_idc.idc_emergency_idtype as basic_idc_idc_emergency_idtype, basic_idc.idc_emergency_id as basic_idc_idc_emergency_id, 
+    basic_idc.idc_emergency_tel as basic_idc_idc_emergency_tel, basic_idc.idc_emergency_mobile as basic_idc_idc_emergency_mobile, 
+    basic_idc.idc_emergency_email as basic_idc_idc_emergency_email, basic_idc.idc_status as basic_idc_idc_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basic_idc basic_idc
+    where basic_idc.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from basic_idc
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicIdc" useGeneratedKeys="true">
+    insert into basic_idc (idc_id, idc_name, idc_addr, 
+      idc_zip, idc_corp, idc_officer_name, 
+      idc_officer_idtype, idc_officer_id, idc_officer_tel, 
+      idc_officer_mobile, idc_officer_email, idc_emergency_name, 
+      idc_emergency_idtype, idc_emergency_id, idc_emergency_tel, 
+      idc_emergency_mobile, idc_emergency_email, 
+      idc_status)
+    values (#{idcId,jdbcType=VARCHAR}, #{idcName,jdbcType=VARCHAR}, #{idcAddr,jdbcType=VARCHAR}, 
+      #{idcZip,jdbcType=VARCHAR}, #{idcCorp,jdbcType=VARCHAR}, #{idcOfficerName,jdbcType=VARCHAR}, 
+      #{idcOfficerIdtype,jdbcType=INTEGER}, #{idcOfficerId,jdbcType=VARCHAR}, #{idcOfficerTel,jdbcType=VARCHAR}, 
+      #{idcOfficerMobile,jdbcType=VARCHAR}, #{idcOfficerEmail,jdbcType=VARCHAR}, #{idcEmergencyName,jdbcType=VARCHAR}, 
+      #{idcEmergencyIdtype,jdbcType=INTEGER}, #{idcEmergencyId,jdbcType=VARCHAR}, #{idcEmergencyTel,jdbcType=VARCHAR}, 
+      #{idcEmergencyMobile,jdbcType=VARCHAR}, #{idcEmergencyEmail,jdbcType=VARCHAR}, 
+      #{idcStatus,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicIdc" useGeneratedKeys="true">
+    insert into basic_idc
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="idcName != null">
+        idc_name,
+      </if>
+      <if test="idcAddr != null">
+        idc_addr,
+      </if>
+      <if test="idcZip != null">
+        idc_zip,
+      </if>
+      <if test="idcCorp != null">
+        idc_corp,
+      </if>
+      <if test="idcOfficerName != null">
+        idc_officer_name,
+      </if>
+      <if test="idcOfficerIdtype != null">
+        idc_officer_idtype,
+      </if>
+      <if test="idcOfficerId != null">
+        idc_officer_id,
+      </if>
+      <if test="idcOfficerTel != null">
+        idc_officer_tel,
+      </if>
+      <if test="idcOfficerMobile != null">
+        idc_officer_mobile,
+      </if>
+      <if test="idcOfficerEmail != null">
+        idc_officer_email,
+      </if>
+      <if test="idcEmergencyName != null">
+        idc_emergency_name,
+      </if>
+      <if test="idcEmergencyIdtype != null">
+        idc_emergency_idtype,
+      </if>
+      <if test="idcEmergencyId != null">
+        idc_emergency_id,
+      </if>
+      <if test="idcEmergencyTel != null">
+        idc_emergency_tel,
+      </if>
+      <if test="idcEmergencyMobile != null">
+        idc_emergency_mobile,
+      </if>
+      <if test="idcEmergencyEmail != null">
+        idc_emergency_email,
+      </if>
+      <if test="idcStatus != null">
+        idc_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idcId != null">
+        #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="idcName != null">
+        #{idcName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcAddr != null">
+        #{idcAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="idcZip != null">
+        #{idcZip,jdbcType=VARCHAR},
+      </if>
+      <if test="idcCorp != null">
+        #{idcCorp,jdbcType=VARCHAR},
+      </if>
+      <if test="idcOfficerName != null">
+        #{idcOfficerName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcOfficerIdtype != null">
+        #{idcOfficerIdtype,jdbcType=INTEGER},
+      </if>
+      <if test="idcOfficerId != null">
+        #{idcOfficerId,jdbcType=VARCHAR},
+      </if>
+      <if test="idcOfficerTel != null">
+        #{idcOfficerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="idcOfficerMobile != null">
+        #{idcOfficerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="idcOfficerEmail != null">
+        #{idcOfficerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="idcEmergencyName != null">
+        #{idcEmergencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcEmergencyIdtype != null">
+        #{idcEmergencyIdtype,jdbcType=INTEGER},
+      </if>
+      <if test="idcEmergencyId != null">
+        #{idcEmergencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="idcEmergencyTel != null">
+        #{idcEmergencyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="idcEmergencyMobile != null">
+        #{idcEmergencyMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="idcEmergencyEmail != null">
+        #{idcEmergencyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="idcStatus != null">
+        #{idcStatus,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.BasicIdc">
+    update basic_idc
+    <set>
+      <if test="idcId != null">
+        idc_id = #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="idcName != null">
+        idc_name = #{idcName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcAddr != null">
+        idc_addr = #{idcAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="idcZip != null">
+        idc_zip = #{idcZip,jdbcType=VARCHAR},
+      </if>
+      <if test="idcCorp != null">
+        idc_corp = #{idcCorp,jdbcType=VARCHAR},
+      </if>
+      <if test="idcOfficerName != null">
+        idc_officer_name = #{idcOfficerName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcOfficerIdtype != null">
+        idc_officer_idtype = #{idcOfficerIdtype,jdbcType=INTEGER},
+      </if>
+      <if test="idcOfficerId != null">
+        idc_officer_id = #{idcOfficerId,jdbcType=VARCHAR},
+      </if>
+      <if test="idcOfficerTel != null">
+        idc_officer_tel = #{idcOfficerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="idcOfficerMobile != null">
+        idc_officer_mobile = #{idcOfficerMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="idcOfficerEmail != null">
+        idc_officer_email = #{idcOfficerEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="idcEmergencyName != null">
+        idc_emergency_name = #{idcEmergencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="idcEmergencyIdtype != null">
+        idc_emergency_idtype = #{idcEmergencyIdtype,jdbcType=INTEGER},
+      </if>
+      <if test="idcEmergencyId != null">
+        idc_emergency_id = #{idcEmergencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="idcEmergencyTel != null">
+        idc_emergency_tel = #{idcEmergencyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="idcEmergencyMobile != null">
+        idc_emergency_mobile = #{idcEmergencyMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="idcEmergencyEmail != null">
+        idc_emergency_email = #{idcEmergencyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="idcStatus != null">
+        idc_status = #{idcStatus,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.BasicIdc">
+    update basic_idc
+    set idc_id = #{idcId,jdbcType=VARCHAR},
+      idc_name = #{idcName,jdbcType=VARCHAR},
+      idc_addr = #{idcAddr,jdbcType=VARCHAR},
+      idc_zip = #{idcZip,jdbcType=VARCHAR},
+      idc_corp = #{idcCorp,jdbcType=VARCHAR},
+      idc_officer_name = #{idcOfficerName,jdbcType=VARCHAR},
+      idc_officer_idtype = #{idcOfficerIdtype,jdbcType=INTEGER},
+      idc_officer_id = #{idcOfficerId,jdbcType=VARCHAR},
+      idc_officer_tel = #{idcOfficerTel,jdbcType=VARCHAR},
+      idc_officer_mobile = #{idcOfficerMobile,jdbcType=VARCHAR},
+      idc_officer_email = #{idcOfficerEmail,jdbcType=VARCHAR},
+      idc_emergency_name = #{idcEmergencyName,jdbcType=VARCHAR},
+      idc_emergency_idtype = #{idcEmergencyIdtype,jdbcType=INTEGER},
+      idc_emergency_id = #{idcEmergencyId,jdbcType=VARCHAR},
+      idc_emergency_tel = #{idcEmergencyTel,jdbcType=VARCHAR},
+      idc_emergency_mobile = #{idcEmergencyMobile,jdbcType=VARCHAR},
+      idc_emergency_email = #{idcEmergencyEmail,jdbcType=VARCHAR},
+      idc_status = #{idcStatus,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

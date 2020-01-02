@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.BasicVirtualhostMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.BasicVirtualhost">
+    <id column="basic_virtualhost_id" jdbcType="BIGINT" property="id" />
+    <result column="basic_virtualhost_hhid" jdbcType="BIGINT" property="hhid" />
+    <result column="basic_virtualhost_virtual_host_name" jdbcType="VARCHAR" property="virtualHostName" />
+    <result column="basic_virtualhost_virtual_host_state" jdbcType="INTEGER" property="virtualHostState" />
+    <result column="basic_virtualhost_virtual_host_type" jdbcType="BIT" property="virtualHostType" />
+    <result column="basic_virtualhost_virtual_host_addr" jdbcType="VARCHAR" property="virtualHostAddr" />
+    <result column="basic_virtualhost_virtual_host_management_addr" jdbcType="VARCHAR" property="virtualHostManagementAddr" />
+    <result column="basic_virtualhost_status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    basic_virtualhost.id as basic_virtualhost_id, basic_virtualhost.hhid as basic_virtualhost_hhid, 
+    basic_virtualhost.virtual_host_name as basic_virtualhost_virtual_host_name, basic_virtualhost.virtual_host_state as basic_virtualhost_virtual_host_state, 
+    basic_virtualhost.virtual_host_type as basic_virtualhost_virtual_host_type, basic_virtualhost.virtual_host_addr as basic_virtualhost_virtual_host_addr, 
+    basic_virtualhost.virtual_host_management_addr as basic_virtualhost_virtual_host_management_addr, 
+    basic_virtualhost.`status` as `basic_virtualhost_status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basic_virtualhost basic_virtualhost
+    where basic_virtualhost.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from basic_virtualhost
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicVirtualhost" useGeneratedKeys="true">
+    insert into basic_virtualhost (hhid, virtual_host_name, virtual_host_state, 
+      virtual_host_type, virtual_host_addr, virtual_host_management_addr, 
+      `status`)
+    values (#{hhid,jdbcType=BIGINT}, #{virtualHostName,jdbcType=VARCHAR}, #{virtualHostState,jdbcType=INTEGER}, 
+      #{virtualHostType,jdbcType=BIT}, #{virtualHostAddr,jdbcType=VARCHAR}, #{virtualHostManagementAddr,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicVirtualhost" useGeneratedKeys="true">
+    insert into basic_virtualhost
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hhid != null">
+        hhid,
+      </if>
+      <if test="virtualHostName != null">
+        virtual_host_name,
+      </if>
+      <if test="virtualHostState != null">
+        virtual_host_state,
+      </if>
+      <if test="virtualHostType != null">
+        virtual_host_type,
+      </if>
+      <if test="virtualHostAddr != null">
+        virtual_host_addr,
+      </if>
+      <if test="virtualHostManagementAddr != null">
+        virtual_host_management_addr,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hhid != null">
+        #{hhid,jdbcType=BIGINT},
+      </if>
+      <if test="virtualHostName != null">
+        #{virtualHostName,jdbcType=VARCHAR},
+      </if>
+      <if test="virtualHostState != null">
+        #{virtualHostState,jdbcType=INTEGER},
+      </if>
+      <if test="virtualHostType != null">
+        #{virtualHostType,jdbcType=BIT},
+      </if>
+      <if test="virtualHostAddr != null">
+        #{virtualHostAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="virtualHostManagementAddr != null">
+        #{virtualHostManagementAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.BasicVirtualhost">
+    update basic_virtualhost
+    <set>
+      <if test="hhid != null">
+        hhid = #{hhid,jdbcType=BIGINT},
+      </if>
+      <if test="virtualHostName != null">
+        virtual_host_name = #{virtualHostName,jdbcType=VARCHAR},
+      </if>
+      <if test="virtualHostState != null">
+        virtual_host_state = #{virtualHostState,jdbcType=INTEGER},
+      </if>
+      <if test="virtualHostType != null">
+        virtual_host_type = #{virtualHostType,jdbcType=BIT},
+      </if>
+      <if test="virtualHostAddr != null">
+        virtual_host_addr = #{virtualHostAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="virtualHostManagementAddr != null">
+        virtual_host_management_addr = #{virtualHostManagementAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.BasicVirtualhost">
+    update basic_virtualhost
+    set hhid = #{hhid,jdbcType=BIGINT},
+      virtual_host_name = #{virtualHostName,jdbcType=VARCHAR},
+      virtual_host_state = #{virtualHostState,jdbcType=INTEGER},
+      virtual_host_type = #{virtualHostType,jdbcType=BIT},
+      virtual_host_addr = #{virtualHostAddr,jdbcType=VARCHAR},
+      virtual_host_management_addr = #{virtualHostManagementAddr,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

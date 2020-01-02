@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.CuHhidMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.CuHhid">
+    <id column="cu_hhid_id" jdbcType="BIGINT" property="id" />
+    <result column="cu_hhid_hhid" jdbcType="BIGINT" property="hhid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cu_hhid.id as cu_hhid_id, cu_hhid.hhid as cu_hhid_hhid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cu_hhid cu_hhid
+    where cu_hhid.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cu_hhid
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.CuHhid" useGeneratedKeys="true">
+    insert into cu_hhid (hhid)
+    values (#{hhid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.CuHhid" useGeneratedKeys="true">
+    insert into cu_hhid
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hhid != null">
+        hhid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hhid != null">
+        #{hhid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.CuHhid">
+    update cu_hhid
+    <set>
+      <if test="hhid != null">
+        hhid = #{hhid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.CuHhid">
+    update cu_hhid
+    set hhid = #{hhid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

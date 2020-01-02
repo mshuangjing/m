@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.PolicyReturnUserdataMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.PolicyReturnUserdata">
+    <id column="policy_return_userdata_id" jdbcType="BIGINT" property="id" />
+    <result column="policy_return_userdata_user_id" jdbcType="BIGINT" property="userId" />
+    <result column="policy_return_userdata_service_id" jdbcType="BIGINT" property="serviceId" />
+    <result column="policy_return_userdata_service_domain_id" jdbcType="BIGINT" property="serviceDomainId" />
+    <result column="policy_return_userdata_service_hh_id" jdbcType="BIGINT" property="serviceHhId" />
+    <result column="policy_return_userdata_hh_id" jdbcType="BIGINT" property="hhId" />
+    <result column="policy_return_userdata_basic_return_info_id" jdbcType="BIGINT" property="basicReturnInfoId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    policy_return_userdata.id as policy_return_userdata_id, policy_return_userdata.user_id as policy_return_userdata_user_id, 
+    policy_return_userdata.service_id as policy_return_userdata_service_id, policy_return_userdata.service_domain_id as policy_return_userdata_service_domain_id, 
+    policy_return_userdata.service_hh_id as policy_return_userdata_service_hh_id, policy_return_userdata.hh_id as policy_return_userdata_hh_id, 
+    policy_return_userdata.basic_return_info_id as policy_return_userdata_basic_return_info_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from policy_return_userdata policy_return_userdata
+    where policy_return_userdata.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from policy_return_userdata
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyReturnUserdata" useGeneratedKeys="true">
+    insert into policy_return_userdata (user_id, service_id, service_domain_id, 
+      service_hh_id, hh_id, basic_return_info_id
+      )
+    values (#{userId,jdbcType=BIGINT}, #{serviceId,jdbcType=BIGINT}, #{serviceDomainId,jdbcType=BIGINT}, 
+      #{serviceHhId,jdbcType=BIGINT}, #{hhId,jdbcType=BIGINT}, #{basicReturnInfoId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyReturnUserdata" useGeneratedKeys="true">
+    insert into policy_return_userdata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="serviceDomainId != null">
+        service_domain_id,
+      </if>
+      <if test="serviceHhId != null">
+        service_hh_id,
+      </if>
+      <if test="hhId != null">
+        hh_id,
+      </if>
+      <if test="basicReturnInfoId != null">
+        basic_return_info_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceDomainId != null">
+        #{serviceDomainId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceHhId != null">
+        #{serviceHhId,jdbcType=BIGINT},
+      </if>
+      <if test="hhId != null">
+        #{hhId,jdbcType=BIGINT},
+      </if>
+      <if test="basicReturnInfoId != null">
+        #{basicReturnInfoId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.PolicyReturnUserdata">
+    update policy_return_userdata
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceId != null">
+        service_id = #{serviceId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceDomainId != null">
+        service_domain_id = #{serviceDomainId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceHhId != null">
+        service_hh_id = #{serviceHhId,jdbcType=BIGINT},
+      </if>
+      <if test="hhId != null">
+        hh_id = #{hhId,jdbcType=BIGINT},
+      </if>
+      <if test="basicReturnInfoId != null">
+        basic_return_info_id = #{basicReturnInfoId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.PolicyReturnUserdata">
+    update policy_return_userdata
+    set user_id = #{userId,jdbcType=BIGINT},
+      service_id = #{serviceId,jdbcType=BIGINT},
+      service_domain_id = #{serviceDomainId,jdbcType=BIGINT},
+      service_hh_id = #{serviceHhId,jdbcType=BIGINT},
+      hh_id = #{hhId,jdbcType=BIGINT},
+      basic_return_info_id = #{basicReturnInfoId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

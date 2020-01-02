@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.SettingCuMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.SettingCu">
+    <id column="setting_cu_id" jdbcType="INTEGER" property="id" />
+    <result column="setting_cu_report_ip" jdbcType="VARCHAR" property="reportIp" />
+    <result column="setting_cu_report_ftp_port" jdbcType="INTEGER" property="reportFtpPort" />
+    <result column="setting_cu_es_ip" jdbcType="VARCHAR" property="esIp" />
+    <result column="setting_cu_es_port" jdbcType="INTEGER" property="esPort" />
+    <result column="setting_cu_es_ftp_port" jdbcType="INTEGER" property="esFtpPort" />
+    <result column="setting_cu_es_device_ip" jdbcType="VARCHAR" property="esDeviceIp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    setting_cu.id as setting_cu_id, setting_cu.report_ip as setting_cu_report_ip, setting_cu.report_ftp_port as setting_cu_report_ftp_port, 
+    setting_cu.es_ip as setting_cu_es_ip, setting_cu.es_port as setting_cu_es_port, setting_cu.es_ftp_port as setting_cu_es_ftp_port, 
+    setting_cu.es_device_ip as setting_cu_es_device_ip
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from setting_cu setting_cu
+    where setting_cu.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from setting_cu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.SettingCu" useGeneratedKeys="true">
+    insert into setting_cu (report_ip, report_ftp_port, es_ip, 
+      es_port, es_ftp_port, es_device_ip
+      )
+    values (#{reportIp,jdbcType=VARCHAR}, #{reportFtpPort,jdbcType=INTEGER}, #{esIp,jdbcType=VARCHAR}, 
+      #{esPort,jdbcType=INTEGER}, #{esFtpPort,jdbcType=INTEGER}, #{esDeviceIp,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.SettingCu" useGeneratedKeys="true">
+    insert into setting_cu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="reportIp != null">
+        report_ip,
+      </if>
+      <if test="reportFtpPort != null">
+        report_ftp_port,
+      </if>
+      <if test="esIp != null">
+        es_ip,
+      </if>
+      <if test="esPort != null">
+        es_port,
+      </if>
+      <if test="esFtpPort != null">
+        es_ftp_port,
+      </if>
+      <if test="esDeviceIp != null">
+        es_device_ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="reportIp != null">
+        #{reportIp,jdbcType=VARCHAR},
+      </if>
+      <if test="reportFtpPort != null">
+        #{reportFtpPort,jdbcType=INTEGER},
+      </if>
+      <if test="esIp != null">
+        #{esIp,jdbcType=VARCHAR},
+      </if>
+      <if test="esPort != null">
+        #{esPort,jdbcType=INTEGER},
+      </if>
+      <if test="esFtpPort != null">
+        #{esFtpPort,jdbcType=INTEGER},
+      </if>
+      <if test="esDeviceIp != null">
+        #{esDeviceIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.SettingCu">
+    update setting_cu
+    <set>
+      <if test="reportIp != null">
+        report_ip = #{reportIp,jdbcType=VARCHAR},
+      </if>
+      <if test="reportFtpPort != null">
+        report_ftp_port = #{reportFtpPort,jdbcType=INTEGER},
+      </if>
+      <if test="esIp != null">
+        es_ip = #{esIp,jdbcType=VARCHAR},
+      </if>
+      <if test="esPort != null">
+        es_port = #{esPort,jdbcType=INTEGER},
+      </if>
+      <if test="esFtpPort != null">
+        es_ftp_port = #{esFtpPort,jdbcType=INTEGER},
+      </if>
+      <if test="esDeviceIp != null">
+        es_device_ip = #{esDeviceIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.SettingCu">
+    update setting_cu
+    set report_ip = #{reportIp,jdbcType=VARCHAR},
+      report_ftp_port = #{reportFtpPort,jdbcType=INTEGER},
+      es_ip = #{esIp,jdbcType=VARCHAR},
+      es_port = #{esPort,jdbcType=INTEGER},
+      es_ftp_port = #{esFtpPort,jdbcType=INTEGER},
+      es_device_ip = #{esDeviceIp,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

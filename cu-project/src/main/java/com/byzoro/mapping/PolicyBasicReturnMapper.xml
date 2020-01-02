@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.PolicyBasicReturnMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.PolicyBasicReturn">
+    <id column="policy_basic_return_id" jdbcType="BIGINT" property="id" />
+    <result column="policy_basic_return_idc_id" jdbcType="VARCHAR" property="idcId" />
+    <result column="policy_basic_return_return_code" jdbcType="VARCHAR" property="returnCode" />
+    <result column="policy_basic_return_return_msg" jdbcType="VARCHAR" property="returnMsg" />
+    <result column="policy_basic_return_return_stamp" jdbcType="INTEGER" property="returnStamp" />
+    <result column="policy_basic_return_operation_time" jdbcType="INTEGER" property="operationTime" />
+    <result column="policy_basic_return_operation_user" jdbcType="VARCHAR" property="operationUser" />
+    <result column="policy_basic_return_operation_type" jdbcType="BIT" property="operationType" />
+    <result column="policy_basic_return_is_return" jdbcType="BIT" property="isReturn" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    policy_basic_return.id as policy_basic_return_id, policy_basic_return.idc_id as policy_basic_return_idc_id, 
+    policy_basic_return.return_code as policy_basic_return_return_code, policy_basic_return.return_msg as policy_basic_return_return_msg, 
+    policy_basic_return.return_stamp as policy_basic_return_return_stamp, policy_basic_return.operation_time as policy_basic_return_operation_time, 
+    policy_basic_return.operation_user as policy_basic_return_operation_user, policy_basic_return.operation_type as policy_basic_return_operation_type, 
+    policy_basic_return.is_return as policy_basic_return_is_return
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from policy_basic_return policy_basic_return
+    where policy_basic_return.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from policy_basic_return
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyBasicReturn" useGeneratedKeys="true">
+    insert into policy_basic_return (idc_id, return_code, return_msg, 
+      return_stamp, operation_time, operation_user, 
+      operation_type, is_return)
+    values (#{idcId,jdbcType=VARCHAR}, #{returnCode,jdbcType=VARCHAR}, #{returnMsg,jdbcType=VARCHAR}, 
+      #{returnStamp,jdbcType=INTEGER}, #{operationTime,jdbcType=INTEGER}, #{operationUser,jdbcType=VARCHAR}, 
+      #{operationType,jdbcType=BIT}, #{isReturn,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyBasicReturn" useGeneratedKeys="true">
+    insert into policy_basic_return
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="returnCode != null">
+        return_code,
+      </if>
+      <if test="returnMsg != null">
+        return_msg,
+      </if>
+      <if test="returnStamp != null">
+        return_stamp,
+      </if>
+      <if test="operationTime != null">
+        operation_time,
+      </if>
+      <if test="operationUser != null">
+        operation_user,
+      </if>
+      <if test="operationType != null">
+        operation_type,
+      </if>
+      <if test="isReturn != null">
+        is_return,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idcId != null">
+        #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnCode != null">
+        #{returnCode,jdbcType=VARCHAR},
+      </if>
+      <if test="returnMsg != null">
+        #{returnMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="returnStamp != null">
+        #{returnStamp,jdbcType=INTEGER},
+      </if>
+      <if test="operationTime != null">
+        #{operationTime,jdbcType=INTEGER},
+      </if>
+      <if test="operationUser != null">
+        #{operationUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null">
+        #{operationType,jdbcType=BIT},
+      </if>
+      <if test="isReturn != null">
+        #{isReturn,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.PolicyBasicReturn">
+    update policy_basic_return
+    <set>
+      <if test="idcId != null">
+        idc_id = #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="returnCode != null">
+        return_code = #{returnCode,jdbcType=VARCHAR},
+      </if>
+      <if test="returnMsg != null">
+        return_msg = #{returnMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="returnStamp != null">
+        return_stamp = #{returnStamp,jdbcType=INTEGER},
+      </if>
+      <if test="operationTime != null">
+        operation_time = #{operationTime,jdbcType=INTEGER},
+      </if>
+      <if test="operationUser != null">
+        operation_user = #{operationUser,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null">
+        operation_type = #{operationType,jdbcType=BIT},
+      </if>
+      <if test="isReturn != null">
+        is_return = #{isReturn,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.PolicyBasicReturn">
+    update policy_basic_return
+    set idc_id = #{idcId,jdbcType=VARCHAR},
+      return_code = #{returnCode,jdbcType=VARCHAR},
+      return_msg = #{returnMsg,jdbcType=VARCHAR},
+      return_stamp = #{returnStamp,jdbcType=INTEGER},
+      operation_time = #{operationTime,jdbcType=INTEGER},
+      operation_user = #{operationUser,jdbcType=VARCHAR},
+      operation_type = #{operationType,jdbcType=BIT},
+      is_return = #{isReturn,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

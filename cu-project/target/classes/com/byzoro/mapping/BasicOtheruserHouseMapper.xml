@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.BasicOtheruserHouseMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.BasicOtheruserHouse">
+    <id column="basic_otheruser_house_id" jdbcType="BIGINT" property="id" />
+    <result column="basic_otheruser_house_hhid" jdbcType="BIGINT" property="hhid" />
+    <result column="basic_otheruser_house_user_id" jdbcType="BIGINT" property="userId" />
+    <result column="basic_otheruser_house_house_id" jdbcType="VARCHAR" property="houseId" />
+    <result column="basic_otheruser_house_distribute_time" jdbcType="INTEGER" property="distributeTime" />
+    <result column="basic_otheruser_house_band_width" jdbcType="INTEGER" property="bandWidth" />
+    <result column="basic_otheruser_house_status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    basic_otheruser_house.id as basic_otheruser_house_id, basic_otheruser_house.hhid as basic_otheruser_house_hhid, 
+    basic_otheruser_house.user_id as basic_otheruser_house_user_id, basic_otheruser_house.house_id as basic_otheruser_house_house_id, 
+    basic_otheruser_house.distribute_time as basic_otheruser_house_distribute_time, basic_otheruser_house.band_width as basic_otheruser_house_band_width, 
+    basic_otheruser_house.`status` as `basic_otheruser_house_status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basic_otheruser_house basic_otheruser_house
+    where basic_otheruser_house.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from basic_otheruser_house
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicOtheruserHouse" useGeneratedKeys="true">
+    insert into basic_otheruser_house (hhid, user_id, house_id, 
+      distribute_time, band_width, `status`
+      )
+    values (#{hhid,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{houseId,jdbcType=VARCHAR}, 
+      #{distributeTime,jdbcType=INTEGER}, #{bandWidth,jdbcType=INTEGER}, #{status,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicOtheruserHouse" useGeneratedKeys="true">
+    insert into basic_otheruser_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hhid != null">
+        hhid,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="distributeTime != null">
+        distribute_time,
+      </if>
+      <if test="bandWidth != null">
+        band_width,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hhid != null">
+        #{hhid,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="distributeTime != null">
+        #{distributeTime,jdbcType=INTEGER},
+      </if>
+      <if test="bandWidth != null">
+        #{bandWidth,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.BasicOtheruserHouse">
+    update basic_otheruser_house
+    <set>
+      <if test="hhid != null">
+        hhid = #{hhid,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="distributeTime != null">
+        distribute_time = #{distributeTime,jdbcType=INTEGER},
+      </if>
+      <if test="bandWidth != null">
+        band_width = #{bandWidth,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.BasicOtheruserHouse">
+    update basic_otheruser_house
+    set hhid = #{hhid,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      house_id = #{houseId,jdbcType=VARCHAR},
+      distribute_time = #{distributeTime,jdbcType=INTEGER},
+      band_width = #{bandWidth,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

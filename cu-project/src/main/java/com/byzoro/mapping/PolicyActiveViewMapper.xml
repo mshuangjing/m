@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.PolicyActiveViewMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.PolicyActiveView">
+    <id column="policy_active_view_id" jdbcType="BIGINT" property="id" />
+    <result column="policy_active_view_commandid" jdbcType="BIGINT" property="commandid" />
+    <result column="policy_active_view_idc_id" jdbcType="VARCHAR" property="idcId" />
+    <result column="policy_active_view_type" jdbcType="BIT" property="type" />
+    <result column="policy_active_view_content" jdbcType="VARCHAR" property="content" />
+    <result column="policy_active_view_end_time" jdbcType="INTEGER" property="endTime" />
+    <result column="policy_active_view_timestamp" jdbcType="INTEGER" property="timestamp" />
+    <result column="policy_active_view_view" jdbcType="BIGINT" property="view" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    policy_active_view.id as policy_active_view_id, policy_active_view.commandid as policy_active_view_commandid, 
+    policy_active_view.idc_id as policy_active_view_idc_id, policy_active_view.`type` as `policy_active_view_type`, 
+    policy_active_view.content as policy_active_view_content, policy_active_view.end_time as policy_active_view_end_time, 
+    policy_active_view.`timestamp` as `policy_active_view_timestamp`, policy_active_view.`view` as `policy_active_view_view`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from policy_active_view policy_active_view
+    where policy_active_view.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from policy_active_view
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyActiveView" useGeneratedKeys="true">
+    insert into policy_active_view (commandid, idc_id, `type`, 
+      content, end_time, `timestamp`, 
+      `view`)
+    values (#{commandid,jdbcType=BIGINT}, #{idcId,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, 
+      #{content,jdbcType=VARCHAR}, #{endTime,jdbcType=INTEGER}, #{timestamp,jdbcType=INTEGER}, 
+      #{view,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.PolicyActiveView" useGeneratedKeys="true">
+    insert into policy_active_view
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        commandid,
+      </if>
+      <if test="idcId != null">
+        idc_id,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="timestamp != null">
+        `timestamp`,
+      </if>
+      <if test="view != null">
+        `view`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commandid != null">
+        #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="idcId != null">
+        #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=INTEGER},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="view != null">
+        #{view,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.PolicyActiveView">
+    update policy_active_view
+    <set>
+      <if test="commandid != null">
+        commandid = #{commandid,jdbcType=BIGINT},
+      </if>
+      <if test="idcId != null">
+        idc_id = #{idcId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=BIT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=INTEGER},
+      </if>
+      <if test="timestamp != null">
+        `timestamp` = #{timestamp,jdbcType=INTEGER},
+      </if>
+      <if test="view != null">
+        `view` = #{view,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.PolicyActiveView">
+    update policy_active_view
+    set commandid = #{commandid,jdbcType=BIGINT},
+      idc_id = #{idcId,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=BIT},
+      content = #{content,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=INTEGER},
+      `timestamp` = #{timestamp,jdbcType=INTEGER},
+      `view` = #{view,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

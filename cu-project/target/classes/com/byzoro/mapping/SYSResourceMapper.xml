@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.byzoro.mapper.SYSResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.SYSResource" >
+    <id column="resource_id" property="resourceId" jdbcType="INTEGER" />
+    <result column="resource_name" property="resourceName" jdbcType="VARCHAR" />
+    <result column="resource_href" property="resourceHref" jdbcType="VARCHAR" />
+    <result column="resource_image" property="resourceImage" jdbcType="VARCHAR" />
+    <result column="resource_type" property="resourceType" jdbcType="VARCHAR" />
+    <result column="resource_desc" property="resourceDesc" jdbcType="VARCHAR" />
+    <result column="resource_remark" property="resourceRemark" jdbcType="VARCHAR" />
+    <result column="is_active" property="isActive" jdbcType="VARCHAR" />
+    <result column="sort_index" property="sortIndex" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="is_leaf" property="isLeaf" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="temp_one" property="tempOne" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap  id="zTreeMap" type="com.byzoro.entity.ZTreeModel">
+  		<result property="id" column="resource_id" />
+		<result property="name" column="resource_name" />
+		<result property="pId" column="parent_id" />
+  </resultMap>
+  
+    <!-- 获取ztree资源列表 -->
+   <select id="getZtreeResourceTree" resultMap="zTreeMap">
+  	select 
+    <include refid="Base_Column_List"  />
+    from t_sys_resource
+    where is_active = '1';
+  </select>
+  
+  <!-- 根据角色的id获取资源id的集合 -->
+  <select id="getResourceIdsByRoleId" resultType="java.util.HashMap" parameterType="java.lang.String">
+ 	 	SELECT
+		 re.resource_id, re.resource_name, re.resource_href, re.resource_image, re.resource_type, re.resource_desc, re.resource_remark, 
+   		 re.is_active, re.sort_index, re.parent_id, re.is_leaf, re.create_time, re.temp_one
+		FROM
+			t_sys_role AS ro,
+			t_sys_resource AS re,
+			t_sys_role_resource AS rrr
+		WHERE
+			ro.role_id = rrr.role_id
+		AND rrr.resource_id = re.resource_id
+		AND ro.role_id = #{roleId,jdbcType=INTEGER}
+  </select>
+  
+  <sql id="Base_Column_List" >
+    resource_id, resource_name, resource_href, resource_image, resource_type, resource_desc, resource_remark, 
+    is_active, sort_index, parent_id, is_leaf, create_time, temp_one
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_resource
+    where resource_id = #{resourceId,jdbcType=INTEGER}
+  </select>
+  <select id="getResourceByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    r.resource_id, 
+    r.resource_name, 
+    r.resource_href, 
+    r.resource_image, 
+    r.resource_type, 
+    r.resource_desc, 
+    r.resource_remark, 
+    r.is_active, 
+    r.sort_index, 
+    r.parent_id, 
+    r.is_leaf, 
+    r.create_time, 
+    r.temp_one
+    from t_sys_resource r,t_sys_role_resource o
+    where o.role_id = #{resourceId,jdbcType=INTEGER} and r.resource_id = o.resource_id
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_sys_resource
+    where resource_id = #{resourceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.byzoro.entity.SYSResource" >
+    insert into t_sys_resource (resource_id, resource_name, resource_href, 
+      resource_image, resource_type, resource_desc, 
+      resource_remark, is_active, sort_index, 
+      parent_id, is_leaf, create_time, 
+      temp_one)
+    values (#{resourceId,jdbcType=INTEGER}, #{resourceName,jdbcType=VARCHAR}, #{resourceHref,jdbcType=VARCHAR}, 
+      #{resourceImage,jdbcType=VARCHAR}, #{resourceType,jdbcType=VARCHAR}, #{resourceDesc,jdbcType=VARCHAR}, 
+      #{resourceRemark,jdbcType=VARCHAR}, #{isActive,jdbcType=VARCHAR}, #{sortIndex,jdbcType=INTEGER}, 
+      #{parentId,jdbcType=INTEGER}, #{isLeaf,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{tempOne,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.byzoro.entity.SYSResource" >
+    insert into t_sys_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null and resourceId !='' " >
+        resource_id,
+      </if>
+      <if test="resourceName != null and resourceName !=''" >
+        resource_name,
+      </if>
+      <if test="resourceHref != null and resourceHref !=''" >
+        resource_href,
+      </if>
+      <if test="resourceImage != null and resourceImage !=''" >
+        resource_image,
+      </if>
+      <if test="resourceType != null and resourceType !=''" >
+        resource_type,
+      </if>
+      <if test="resourceDesc != null and resourceDesc !=''" >
+        resource_desc,
+      </if>
+      <if test="resourceRemark != null and resourceRemark !=''" >
+        resource_remark,
+      </if>
+      <if test="isActive != null and isActive !=''" >
+        is_active,
+      </if>
+      <if test="sortIndex != null and sortIndex !=''" >
+        sort_index,
+      </if>
+      <if test="parentId != null and parentId !=''" >
+        parent_id,
+      </if>
+      <if test="isLeaf != null and isLeaf !=''" >
+        is_leaf,
+      </if>
+      <if test="createTime != null and createTime !=''" >
+        create_time,
+      </if>
+      <if test="tempOne != null and tempOne !=''" >
+        temp_one,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceId != null and resourceId !=''" >
+        #{resourceId,jdbcType=INTEGER},
+      </if>
+      <if test="resourceName != null and resourceName !=''" >
+        #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceHref != null and resourceHref !=''" >
+        #{resourceHref,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceImage != null and resourceImage !=''" >
+        #{resourceImage,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null and resourceType !=''" >
+        #{resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceDesc != null and resourceDesc !=''" >
+        #{resourceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceRemark != null and resourceRemark !=''" >
+        #{resourceRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isActive != null and isActive !=''" >
+        #{isActive,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null and sortIndex !=''" >
+        #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null and parentId !=''" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="isLeaf != null and isLeaf !=''" >
+        #{isLeaf,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null and createTime !=''" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tempOne != null and tempOne !=''" >
+        #{tempOne,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.SYSResource" >
+    update t_sys_resource
+    <set >
+      <if test="resourceName != null and resourceName !=''" >
+        resource_name = #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceHref != null and resourceHref !=''" >
+        resource_href = #{resourceHref,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceImage != null and resourceImage !=''" >
+        resource_image = #{resourceImage,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null and resourceType !=''" >
+        resource_type = #{resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceDesc != null and resourceDesc !=''" >
+        resource_desc = #{resourceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceRemark != null and resourceRemark !=''" >
+        resource_remark = #{resourceRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isActive != null and isActive !=''" >
+        is_active = #{isActive,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null and sortIndex !=''" >
+        sort_index = #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null and parentId !=''" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="isLeaf != null and isLeaf !=''" >
+        is_leaf = #{isLeaf,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null and createTime !=''" >
+       <!--  create_time = #{createTime,jdbcType=TIMESTAMP}, -->
+      </if>
+      <if test="tempOne != null and tempOne !=''" >
+        temp_one = #{tempOne,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where resource_id = #{resourceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.SYSResource" >
+    update t_sys_resource
+    set resource_name = #{resourceName,jdbcType=VARCHAR},
+      resource_href = #{resourceHref,jdbcType=VARCHAR},
+      resource_image = #{resourceImage,jdbcType=VARCHAR},
+      resource_type = #{resourceType,jdbcType=VARCHAR},
+      resource_desc = #{resourceDesc,jdbcType=VARCHAR},
+      resource_remark = #{resourceRemark,jdbcType=VARCHAR},
+      is_active = #{isActive,jdbcType=VARCHAR},
+      sort_index = #{sortIndex,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      is_leaf = #{isLeaf,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      temp_one = #{tempOne,jdbcType=VARCHAR}
+    where resource_id = #{resourceId,jdbcType=INTEGER}
+  </update>
+  
+  <sql id="queryCondition">
+  		<where>
+  			<if test="resource_name!=null and resource_name!=''">
+  					and resource_name LIKE #{resource_name,jdbcType=VARCHAR}
+			</if>
+		   	<if test="resource_href!=null and resource_href!=''">
+		  			and resource_href LIKE #{resource_href,jdbcType=VARCHAR}
+			</if>
+		   	<if test="resource_desc!=null and resource_desc!=''">
+		  			and resource_desc LIKE #{resource_desc,jdbcType=VARCHAR}
+			</if>
+		   	<if test="resource_type!=null and resource_type!=''">
+		  			and resource_type = #{resource_type,jdbcType=VARCHAR}
+			</if>
+			
+			<if test="parent_id!=null and parent_id!=''">
+		  			and parent_id = #{parent_id,jdbcType=INTEGER}
+			</if>
+  		</where>
+  </sql>
+  
+  <!-- 查询总的记录数 -->
+	<select id="getCount" resultType="long">
+		SELECT count(resource_id)
+		FROM t_sys_resource
+		<include refid="queryCondition"/>
+	</select>
+  
+  <select id="getSYSResourceList" resultType="java.util.HashMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_sys_resource 
+		<include refid="queryCondition"></include>
+		ORDER BY resource_id desc
+		limit
+		#{page,jdbcType=INTEGER},#{row,jdbcType=INTEGER}
+	</select>
+	
+<!-- 获取所有的资源 -->
+  <select id="getAllParentResource" resultType="java.util.HashMap">
+  	select 
+    <include refid="Base_Column_List"  />
+    from t_sys_resource
+    where is_active = '1';
+  </select>
+ <!-- 根据用户的id获取资源id的集合 -->
+  <select id="getResourceIdsByUserId" resultType="java.util.HashMap" parameterType="java.lang.String">
+  	SELECT
+	re.resource_id, re.resource_name, re.resource_href, re.resource_image, re.resource_type, re.resource_desc, re.resource_remark, 
+    re.is_active, re.sort_index, re.parent_id, re.is_leaf, re.create_time, re.temp_one
+	FROM
+		t_sys_resource AS re,
+		t_sys_user_resource AS ru,
+		t_sys_user AS u
+	WHERE
+		u.user_id = ru.user_id
+	AND ru.resource_id = re.resource_id
+	AND u.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getAllResource" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List"  />
+    from t_sys_resource
+    where is_active = '1';
+  </select>
+</mapper>

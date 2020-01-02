@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.SettingDuMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.SettingDu">
+    <id column="setting_du_id" jdbcType="INTEGER" property="id" />
+    <result column="setting_du_user_passwd" jdbcType="VARCHAR" property="userPasswd" />
+    <result column="setting_du_authentication_key" jdbcType="VARCHAR" property="authenticationKey" />
+    <result column="setting_du_is_encrypt" jdbcType="BIT" property="isEncrypt" />
+    <result column="setting_du_aes_key" jdbcType="VARCHAR" property="aesKey" />
+    <result column="setting_du_aes_offset" jdbcType="VARCHAR" property="aesOffset" />
+    <result column="setting_du_hash_method" jdbcType="BIT" property="hashMethod" />
+    <result column="setting_du_is_zip" jdbcType="BIT" property="isZip" />
+    <result column="setting_du_version" jdbcType="VARCHAR" property="version" />
+    <result column="setting_du_prov_id" jdbcType="VARCHAR" property="provId" />
+    <result column="setting_du_webservice_addr" jdbcType="VARCHAR" property="webserviceAddr" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    setting_du.id as setting_du_id, setting_du.user_passwd as setting_du_user_passwd, 
+    setting_du.authentication_key as setting_du_authentication_key, setting_du.is_encrypt as setting_du_is_encrypt, 
+    setting_du.aes_key as setting_du_aes_key, setting_du.aes_offset as setting_du_aes_offset, 
+    setting_du.hash_method as setting_du_hash_method, setting_du.is_zip as setting_du_is_zip, 
+    setting_du.version as setting_du_version, setting_du.prov_id as setting_du_prov_id, 
+    setting_du.webservice_addr as setting_du_webservice_addr
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from setting_du setting_du
+    where setting_du.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from setting_du
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.SettingDu" useGeneratedKeys="true">
+    insert into setting_du (user_passwd, authentication_key, is_encrypt, 
+      aes_key, aes_offset, hash_method, 
+      is_zip, version, prov_id, 
+      webservice_addr)
+    values (#{userPasswd,jdbcType=VARCHAR}, #{authenticationKey,jdbcType=VARCHAR}, #{isEncrypt,jdbcType=BIT}, 
+      #{aesKey,jdbcType=VARCHAR}, #{aesOffset,jdbcType=VARCHAR}, #{hashMethod,jdbcType=BIT}, 
+      #{isZip,jdbcType=BIT}, #{version,jdbcType=VARCHAR}, #{provId,jdbcType=VARCHAR}, 
+      #{webserviceAddr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.SettingDu" useGeneratedKeys="true">
+    insert into setting_du
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userPasswd != null">
+        user_passwd,
+      </if>
+      <if test="authenticationKey != null">
+        authentication_key,
+      </if>
+      <if test="isEncrypt != null">
+        is_encrypt,
+      </if>
+      <if test="aesKey != null">
+        aes_key,
+      </if>
+      <if test="aesOffset != null">
+        aes_offset,
+      </if>
+      <if test="hashMethod != null">
+        hash_method,
+      </if>
+      <if test="isZip != null">
+        is_zip,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="provId != null">
+        prov_id,
+      </if>
+      <if test="webserviceAddr != null">
+        webservice_addr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userPasswd != null">
+        #{userPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="authenticationKey != null">
+        #{authenticationKey,jdbcType=VARCHAR},
+      </if>
+      <if test="isEncrypt != null">
+        #{isEncrypt,jdbcType=BIT},
+      </if>
+      <if test="aesKey != null">
+        #{aesKey,jdbcType=VARCHAR},
+      </if>
+      <if test="aesOffset != null">
+        #{aesOffset,jdbcType=VARCHAR},
+      </if>
+      <if test="hashMethod != null">
+        #{hashMethod,jdbcType=BIT},
+      </if>
+      <if test="isZip != null">
+        #{isZip,jdbcType=BIT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="provId != null">
+        #{provId,jdbcType=VARCHAR},
+      </if>
+      <if test="webserviceAddr != null">
+        #{webserviceAddr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.SettingDu">
+    update setting_du
+    <set>
+      <if test="userPasswd != null">
+        user_passwd = #{userPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="authenticationKey != null">
+        authentication_key = #{authenticationKey,jdbcType=VARCHAR},
+      </if>
+      <if test="isEncrypt != null">
+        is_encrypt = #{isEncrypt,jdbcType=BIT},
+      </if>
+      <if test="aesKey != null">
+        aes_key = #{aesKey,jdbcType=VARCHAR},
+      </if>
+      <if test="aesOffset != null">
+        aes_offset = #{aesOffset,jdbcType=VARCHAR},
+      </if>
+      <if test="hashMethod != null">
+        hash_method = #{hashMethod,jdbcType=BIT},
+      </if>
+      <if test="isZip != null">
+        is_zip = #{isZip,jdbcType=BIT},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="provId != null">
+        prov_id = #{provId,jdbcType=VARCHAR},
+      </if>
+      <if test="webserviceAddr != null">
+        webservice_addr = #{webserviceAddr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.SettingDu">
+    update setting_du
+    set user_passwd = #{userPasswd,jdbcType=VARCHAR},
+      authentication_key = #{authenticationKey,jdbcType=VARCHAR},
+      is_encrypt = #{isEncrypt,jdbcType=BIT},
+      aes_key = #{aesKey,jdbcType=VARCHAR},
+      aes_offset = #{aesOffset,jdbcType=VARCHAR},
+      hash_method = #{hashMethod,jdbcType=BIT},
+      is_zip = #{isZip,jdbcType=BIT},
+      version = #{version,jdbcType=VARCHAR},
+      prov_id = #{provId,jdbcType=VARCHAR},
+      webservice_addr = #{webserviceAddr,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

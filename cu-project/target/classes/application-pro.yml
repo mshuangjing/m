@@ -1,0 +1,36 @@
+# <-- 需要修改mysql-url的IP，端口，数据库名称，用户名，密码其余参数不需要更改 -->
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.84.1.104:3306/bigdata?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: aaaaaa
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      #配置参考:https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE
+      #配置连接池初始化大小
+      initial-size: 10
+      #配置最小空闲连接
+      min-idle: 10
+      #最大空闲连接
+      max-active: 200
+      #获取连接等待超时时间ms
+      max-wait: 60000
+      #间隔多久进行一次检测，检测需要关闭的空闲连接ms
+      time-between-eviction-runs-millis: 60000
+      #一个连接在池中最小生存时间 ms
+      min-evictable-idle-time-millis: 300000
+      #验证数据库连接的有效性
+      validation-query: SELECT 1
+      #不影响性能,申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
+      test-while-idle: true
+      #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      test-on-borrow: false
+      #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      test-on-return: false
+      #在mysql下建议关闭
+      pool-prepared-statements: false
+      #缺省配置的wallFilter,防御SQL注入攻击
+      filter: wall
+      #是否自动回收超时连接  ，生成环境需关闭
+      remove-abandoned: false

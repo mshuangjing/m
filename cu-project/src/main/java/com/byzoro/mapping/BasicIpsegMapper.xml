@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byzoro.mapper.BasicIpsegMapper">
+  <resultMap id="BaseResultMap" type="com.byzoro.entity.BasicIpseg">
+    <id column="basic_ipseg_id" jdbcType="BIGINT" property="id" />
+    <result column="basic_ipseg_house_id" jdbcType="VARCHAR" property="houseId" />
+    <result column="basic_ipseg_startip" jdbcType="VARCHAR" property="startip" />
+    <result column="basic_ipseg_endip" jdbcType="VARCHAR" property="endip" />
+    <result column="basic_ipseg_type" jdbcType="BIT" property="type" />
+    <result column="basic_ipseg_user" jdbcType="VARCHAR" property="user" />
+    <result column="basic_ipseg_id_type" jdbcType="INTEGER" property="idType" />
+    <result column="basic_ipseg_idnumber" jdbcType="VARCHAR" property="idnumber" />
+    <result column="basic_ipseg_sourceunit" jdbcType="VARCHAR" property="sourceunit" />
+    <result column="basic_ipseg_allocationunit" jdbcType="VARCHAR" property="allocationunit" />
+    <result column="basic_ipseg_usertime" jdbcType="INTEGER" property="usertime" />
+    <result column="basic_ipseg_status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    basic_ipseg.id as basic_ipseg_id, basic_ipseg.house_id as basic_ipseg_house_id, basic_ipseg.startip as basic_ipseg_startip, 
+    basic_ipseg.endip as basic_ipseg_endip, basic_ipseg.`type` as `basic_ipseg_type`, 
+    basic_ipseg.`user` as `basic_ipseg_user`, basic_ipseg.id_type as basic_ipseg_id_type, 
+    basic_ipseg.idnumber as basic_ipseg_idnumber, basic_ipseg.sourceunit as basic_ipseg_sourceunit, 
+    basic_ipseg.allocationunit as basic_ipseg_allocationunit, basic_ipseg.usertime as basic_ipseg_usertime, 
+    basic_ipseg.`status` as `basic_ipseg_status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from basic_ipseg basic_ipseg
+    where basic_ipseg.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from basic_ipseg
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicIpseg" useGeneratedKeys="true">
+    insert into basic_ipseg (house_id, startip, endip, 
+      `type`, `user`, id_type, idnumber, 
+      sourceunit, allocationunit, usertime, 
+      `status`)
+    values (#{houseId,jdbcType=VARCHAR}, #{startip,jdbcType=VARCHAR}, #{endip,jdbcType=VARCHAR}, 
+      #{type,jdbcType=BIT}, #{user,jdbcType=VARCHAR}, #{idType,jdbcType=INTEGER}, #{idnumber,jdbcType=VARCHAR}, 
+      #{sourceunit,jdbcType=VARCHAR}, #{allocationunit,jdbcType=VARCHAR}, #{usertime,jdbcType=INTEGER}, 
+      #{status,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.byzoro.entity.BasicIpseg" useGeneratedKeys="true">
+    insert into basic_ipseg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        house_id,
+      </if>
+      <if test="startip != null">
+        startip,
+      </if>
+      <if test="endip != null">
+        endip,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="user != null">
+        `user`,
+      </if>
+      <if test="idType != null">
+        id_type,
+      </if>
+      <if test="idnumber != null">
+        idnumber,
+      </if>
+      <if test="sourceunit != null">
+        sourceunit,
+      </if>
+      <if test="allocationunit != null">
+        allocationunit,
+      </if>
+      <if test="usertime != null">
+        usertime,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="houseId != null">
+        #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="startip != null">
+        #{startip,jdbcType=VARCHAR},
+      </if>
+      <if test="endip != null">
+        #{endip,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="user != null">
+        #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null">
+        #{idType,jdbcType=INTEGER},
+      </if>
+      <if test="idnumber != null">
+        #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceunit != null">
+        #{sourceunit,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationunit != null">
+        #{allocationunit,jdbcType=VARCHAR},
+      </if>
+      <if test="usertime != null">
+        #{usertime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byzoro.entity.BasicIpseg">
+    update basic_ipseg
+    <set>
+      <if test="houseId != null">
+        house_id = #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="startip != null">
+        startip = #{startip,jdbcType=VARCHAR},
+      </if>
+      <if test="endip != null">
+        endip = #{endip,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=BIT},
+      </if>
+      <if test="user != null">
+        `user` = #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null">
+        id_type = #{idType,jdbcType=INTEGER},
+      </if>
+      <if test="idnumber != null">
+        idnumber = #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceunit != null">
+        sourceunit = #{sourceunit,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationunit != null">
+        allocationunit = #{allocationunit,jdbcType=VARCHAR},
+      </if>
+      <if test="usertime != null">
+        usertime = #{usertime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byzoro.entity.BasicIpseg">
+    update basic_ipseg
+    set house_id = #{houseId,jdbcType=VARCHAR},
+      startip = #{startip,jdbcType=VARCHAR},
+      endip = #{endip,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=BIT},
+      `user` = #{user,jdbcType=VARCHAR},
+      id_type = #{idType,jdbcType=INTEGER},
+      idnumber = #{idnumber,jdbcType=VARCHAR},
+      sourceunit = #{sourceunit,jdbcType=VARCHAR},
+      allocationunit = #{allocationunit,jdbcType=VARCHAR},
+      usertime = #{usertime,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
