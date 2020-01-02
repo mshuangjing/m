@@ -1,1 +1,1 @@
-测试项目
+springboot + greenplum + mybatis + springmvc demo项目
